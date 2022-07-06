@@ -53,7 +53,7 @@ const App = () => {
           <div style={{ backgroundColor: "green", width: "100%", paddingLeft: "15px", color: "white", fontSize: "20px" }}>
             <Link to="/" style={{ color: "white" }}>
               <MailFilled />
-              &nbsp;&nbsp;&nbsp;EveryDay Mail
+              &nbsp;&nbsp;&nbsp;EveryDay-Mail
             </Link>
           </div>
           {/* <Menu theme="light" style={{ width: "100%", paddingRight: "50px", backgroundColor: "green", color: "white", flexDirection: "row-reverse" }} mode="horizontal" items={topBarList} /> */}
