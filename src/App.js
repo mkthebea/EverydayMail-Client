@@ -32,6 +32,13 @@ const App = () => {
     fetchAccountsList();
   }, []);
 
+  // 로그인 상태 관리
+  const [login, setLogin] = useState(false);
+  const fetchLogin = () => {
+    setLogin(!login);
+    console.log("로그인 상태: ", login);
+  };
+
   return (
     <Router>
       <Layout style={{ height: "100vh" }}>
@@ -55,7 +62,25 @@ const App = () => {
                 Register
               </Link>
             </Menu.Item>
-            <Menu.Item key="logout">Logout</Menu.Item>
+            {/* <Menu.Item key="logout">Logout</Menu.Item> */}
+            {/* <Menu.Item key="login">
+              Login
+              <Button type="ghost" onClick={fetchLogin} style={{ borderColor: "transparent" }}>
+                메일 리스트 열기
+              </Button>
+            </Menu.Item> */}
+
+            {login ? (
+              <Menu.Item key="logout" onClick={fetchLogin}>
+                Logout
+              </Menu.Item>
+            ) : (
+              <Menu.Item key="login">
+                <Link to="/login" style={{ color: "white" }}>
+                  Login
+                </Link>
+              </Menu.Item>
+            )}
           </Menu>
         </Header>
 
