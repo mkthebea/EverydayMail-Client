@@ -11,6 +11,7 @@ import ScanningPage from "./components/ScanningPage/ScanningPage";
 import SettingPage from "./components/SettingPage/SettingPage";
 import Accounts from "./components/Accounts/Accounts";
 import DetailPage from "./components/DetailPage/DetailPage";
+import SignupPage from "./components/SignupPage/SignupPage";
 import axios from "axios";
 
 const { Header, Content, Sider } = Layout;
@@ -32,10 +33,11 @@ const App = () => {
     fetchAccountsList();
   }, []);
 
-  // 로그인 상태 관리
+  // 로그인 상태 가져오기
   const [login, setLogin] = useState(false);
-  const fetchLogin = () => {
-    setLogin(!login);
+  const fetchLogin = async () => {
+    const response = await axios.get("https://66d970b7-c9c2-4dfb-be10-e28048802b89.mock.pstmn.io/api/login");
+    setLogin(response.data.isLogin);
     console.log("로그인 상태: ", login);
   };
 
@@ -71,11 +73,11 @@ const App = () => {
             </Menu.Item> */}
 
             {login ? (
-              <Menu.Item key="logout" onClick={fetchLogin}>
+              <Menu.Item key="logout" onClick={fetchLogin()}>
                 Logout
               </Menu.Item>
             ) : (
-              <Menu.Item key="login">
+              <Menu.Item key="login" onClick={fetchLogin()}>
                 <Link to="/login" style={{ color: "white" }}>
                   Login
                 </Link>
@@ -140,6 +142,7 @@ const App = () => {
               <Routes>
                 <Route path="/" element={<DashBoard />} />
                 <Route path="/login" element={<LoginPage />} />
+                <Route path="/signup" element={<SignupPage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/scanning" element={<ScanningPage />} />
                 <Route path="/setting" element={<SettingPage />} />
