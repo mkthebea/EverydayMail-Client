@@ -4,15 +4,18 @@ import axios from "axios";
 
 function LoginPage() {
   // 로그인 상태 관리
+  // const [login, setLogin] = useState(false);
+  // const fetchLogin = async () => {
+  //   const response = await axios.get("https://66d970b7-c9c2-4dfb-be10-e28048802b89.mock.pstmn.io/api/login");
+  //   setLogin(response.data.isLogin);
+  //   console.log("로그인 상태: ", login);
+  // };
+
   const [login, setLogin] = useState(false);
-  const fetchLogin = async () => {
-    const response = await axios.get("https://66d970b7-c9c2-4dfb-be10-e28048802b89.mock.pstmn.io/api/login");
-    setLogin(response.data.isLogin);
+  const fetchLogin = () => {
+    setLogin(!login);
     console.log("로그인 상태: ", login);
   };
-  // useEffect(() => {
-  //   fetchLogin();
-  // }, []);
 
   const onFinish = (values) => {
     // 로그인 성공시 메인 페이지로 이동
