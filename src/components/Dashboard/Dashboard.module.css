@@ -46,7 +46,7 @@
 
 @keyframes bubble{
     0%{transform:translate(0,0);}
-    100%{transform:translate(10px,20px);}
+    100%{transform:translate(0,20px);}
  }  
 
 
@@ -66,7 +66,7 @@
     font-weight: bolder;
     padding: 5px;
     margin: 10vh 65vw 0 0;
-    border: 10px double white;
+    border: 5px solid white;
     animation: bubble 2s infinite alternate;  
 }
 /* 새싹 */

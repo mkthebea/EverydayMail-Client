@@ -1,4 +1,6 @@
 import { React, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
 import { Button, Checkbox, Form, Input } from "antd";
 import axios from "axios";
 import styles from "./LoginPage.module.css";
@@ -32,6 +34,7 @@ function LoginPage() {
   return (
     <div className={styles.container}>
       <div className={styles.form_container}>
+        <div className={styles.text}>Login</div>
         <Form
           className={styles.form}
           name="basic"
@@ -58,7 +61,15 @@ function LoginPage() {
             <Button type="primary" htmlType="submit">
               Submit
             </Button>
+            <span style={{ marginLeft: "50px" }}>No Account? </span>
+            <Link to="/signup">
+              <u>Sign Up EveryDay-Mail</u>
+            </Link>
           </Form.Item>
+          {/* <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <span>No Account? </span>
+            <Link to="/signup">Sign Up EveryDay-Mail</Link>
+          </Form.Item> */}
         </Form>
       </div>
     </div>
