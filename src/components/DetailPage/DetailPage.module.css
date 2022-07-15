@@ -1,0 +1,29 @@
+.container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* background-color: white; */
+    /* padding: 20px 20px 20px 20px; */
+}
+
+.account_name {
+    padding-bottom: 30px;
+    font-size: 20px;
+    /* color: green; */
+}
+
+.sender_list_container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    /* border: 5px double green; */
+    width: 85vw;
+}
+
+.sender_list {
+    max-height: 70vh;
+    overflow-y: auto;
+}

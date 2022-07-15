@@ -1,0 +1,106 @@
+/* 전체 컨테이너 */
+.container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url("./field3.png"), url("./sunshine.png");
+    background-position: bottom;
+    background-size: 100vw 100vh;
+    background-repeat: no-repeat;
+    /* backgroundColor: rgb(171,214,240); */
+}
+
+/* @keyframes bubble {
+    0%{
+        top: 0px;
+        bottom: 0px;
+        right:0px;
+        left: 0px;
+    }
+    25%{
+        top: 0px;
+        bottom: 0px;
+        right:0px;
+        left: 0px;
+    }
+    50%{
+        top: 0px;
+        bottom: 0px;
+        right:0px;
+        left: 0px;
+    }
+    75%{
+        top: 0px;
+        bottom: 0px;
+        right:0px;
+        left: 0px;
+    }
+    100%{
+        top: 0px;
+        bottom: 0px;
+        right:0px;
+        left: 0px;
+    }
+} */
+
+@keyframes bubble{
+    0%{transform:translate(0,0);}
+    100%{transform:translate(10px,20px);}
+ }  
+
+
+/* 절감한 탄소 배출량 */
+.co2Cut {
+    /* position: absolute; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 30vh;
+    width: 30vh;
+    background-color: rgb(144, 238, 144, 0.6);
+    border-radius: 30vh;
+    color: green;
+    font-size: 20px;
+    font-weight: bolder;
+    padding: 5px;
+    margin: 10vh 65vw 0 0;
+    border: 10px double white;
+    animation: bubble 2s infinite alternate;  
+}
+/* 새싹 */
+.sprout {
+    height: 20vh;
+    position: absolute;
+    bottom: 10vh;
+    z-index: 0;
+    /* background-color: rgb(255,255,255,0.5);
+    border-radius: 50px; */
+}
+/* 나무 */
+.trees {
+    height: 90vh;
+    position: absolute;
+    bottom: 10vh;
+    z-index: 0;
+    /* border-bottom: 30px dashed white; */
+    /* background-color: rgb(255,255,255,0.5);
+    border-radius: 50px; */
+}
+/* 이름표 */
+.ground {
+    width: 10vw;
+    height: 5vh;
+    position: absolute;
+    bottom: 5vh;
+    box-shadow: 0 0 30px white;
+    background-color: rgb(144, 238, 144, 0.6);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+}
