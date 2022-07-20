@@ -22,7 +22,7 @@ function Dashboard() {
   //   fetchDashboardData();
   // }, []);
 
-  const dashboardData = { deletedMails: 900, userID: "test1" };
+  const dashboardData = { deletedMails: 700, userID: "test1" };
   const co2 = dashboardData.deletedMails * 4;
 
   return (

@@ -18,3 +18,12 @@
     width: 85vw;
     height: 85vh;
 }
+
+.title {
+    font-size: 20px;
+    margin: 30px;
+}
+
+.form {
+    width: 80%;
+}

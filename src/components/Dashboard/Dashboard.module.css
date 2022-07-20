@@ -11,39 +11,6 @@
     /* backgroundColor: rgb(171,214,240); */
 }
 
-/* @keyframes bubble {
-    0%{
-        top: 0px;
-        bottom: 0px;
-        right:0px;
-        left: 0px;
-    }
-    25%{
-        top: 0px;
-        bottom: 0px;
-        right:0px;
-        left: 0px;
-    }
-    50%{
-        top: 0px;
-        bottom: 0px;
-        right:0px;
-        left: 0px;
-    }
-    75%{
-        top: 0px;
-        bottom: 0px;
-        right:0px;
-        left: 0px;
-    }
-    100%{
-        top: 0px;
-        bottom: 0px;
-        right:0px;
-        left: 0px;
-    }
-} */
-
 @keyframes bubble{
     0%{transform:translate(0,0);}
     100%{transform:translate(0,20px);}

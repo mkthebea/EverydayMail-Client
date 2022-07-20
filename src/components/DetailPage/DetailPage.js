@@ -3,7 +3,6 @@ import qs from "qs";
 import { useLocation } from "react-router-dom";
 import styles from "./DetailPage.module.css";
 import { Avatar, List } from "antd";
-import InfiniteScroll from "react-infinite-scroll-component";
 
 function DetailPage() {
   const location = useLocation();

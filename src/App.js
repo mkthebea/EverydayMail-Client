@@ -3,7 +3,7 @@ import { Link, BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import axios from "axios";
 
 import "./App.module.css";
-import "antd/dist/antd.css";
+import "antd/dist/antd.min.css";
 import { ScanOutlined, LaptopOutlined, LoginOutlined, LogoutOutlined, SettingOutlined, PlusCircleOutlined, MenuFoldOutlined, MenuUnfoldOutlined, MailOutlined, MailFilled } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import DashBoard from "./components/Dashboard/Dashboard";
