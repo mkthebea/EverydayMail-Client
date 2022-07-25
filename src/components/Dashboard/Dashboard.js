@@ -34,6 +34,15 @@ function Dashboard() {
       {/* Sprout < 500 - BabyTree < 2000 - Tree1 < 4000 - Orangetree */}
       {co2 < 500 ? <img className={styles.sprout} src={Sprout} /> : <img className={styles.trees} src={co2 < 2000 ? BabyTree : co2 < 4000 ? Tree1 : Orangetree} />}
       <div className={styles.ground}>MY TREE</div>
+      {/* <div className={`${styles.bird_container} ${styles.bird_container_one}`}>
+        <div className={`${styles.bird} ${styles.bird_one}`}></div>
+      </div> */}
+      <div className={styles.bird_container}>
+        <div className={styles.bird}></div>
+      </div>
+      <div class={styles.bird_container_two}>
+        <div className={styles.bird_two}></div>
+      </div>
     </div>
   );
 }

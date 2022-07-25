@@ -73,7 +73,11 @@ function DetailPage() {
           dataSource={adSender}
           renderItem={(item, index) => (
             <List.Item>
-              <List.Item.Meta avatar={<Avatar style={{ color: "red", border: "1px solid red", backgroundColor: "white" }}>{index + 1}</Avatar>} title={item.name} description={item.email} />
+              <List.Item.Meta
+                avatar={<Avatar style={{ color: "red", border: "1px solid red", backgroundColor: "white", marginLeft: "50px" }}>{index + 1}</Avatar>}
+                title={item.name}
+                description={item.email}
+              />
               <div style={{ marginRight: "50px" }}>mail count: {item.mailCount}</div>
             </List.Item>
           )}

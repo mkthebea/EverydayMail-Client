@@ -25,5 +25,8 @@
 }
 
 .form {
-    width: 80%;
+    width: 100%;
+    padding: 50px;
+    border-radius: 10px;
+    background-color: rgb(250,250,250);
 }

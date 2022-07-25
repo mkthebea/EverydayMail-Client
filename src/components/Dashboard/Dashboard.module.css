@@ -1,6 +1,7 @@
 /* 전체 컨테이너 */
 .container {
     height: 100vh;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -35,6 +36,7 @@
     margin: 10vh 65vw 0 0;
     border: 5px solid white;
     animation: bubble 2s infinite alternate;  
+    z-index: 10;
 }
 /* 새싹 */
 .sprout {
@@ -45,12 +47,23 @@
     /* background-color: rgb(255,255,255,0.5);
     border-radius: 50px; */
 }
+
+@keyframes vibration {
+    from {
+      transform: rotate(1deg);
+    }
+    to {
+      transform: rotate(-1deg);
+    }
+  }
+
 /* 나무 */
 .trees {
     height: 90vh;
     position: absolute;
     bottom: 10vh;
-    z-index: 0;
+    z-index: 10;
+    /* animation: vibration 5s infinite alternate; */
     /* border-bottom: 30px dashed white; */
     /* background-color: rgb(255,255,255,0.5);
     border-radius: 50px; */
@@ -70,4 +83,100 @@
     color: white;
     font-size: 25px;
     font-weight: bold;
+}
+
+.bird {
+	background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/174479/bird-cells-new.svg);
+	background-size: auto 100%;
+	width: 88px;
+	height: 125px;
+	will-change: background-position;
+	
+	animation-name: fly-cycle;
+	animation-timing-function: steps(10);
+	animation-iteration-count: infinite;
+    animation-duration: 1s;
+	animation-delay: -0.5s;	
+}
+.bird_two {
+	background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/174479/bird-cells-new.svg);
+	background-size: auto 100%;
+	width: 88px;
+	height: 125px;
+	will-change: background-position;
+	
+	animation-name: fly-cycle;
+	animation-timing-function: steps(10);
+	animation-iteration-count: infinite;
+    animation-duration: 0.9s;
+	animation-delay: -0.75s;
+}
+
+.bird_container {
+	position: absolute;
+	top: 20%;
+	left: 10%;
+	transform: scale(0) translateX(-10vw);
+	will-change: transform;
+	
+	animation-name: fly-right-one;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+    animation-duration: 15s;
+	animation-delay: 0;
+}
+.bird_container_two {
+	position: absolute;
+	top: 20%;
+	left: 10%;
+	transform: scale(0) translateX(-10vw);
+	will-change: transform;
+	
+	animation-name: fly-right-one;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+    animation-duration: 16s;
+	animation-delay: 1s;
+}
+
+@keyframes fly-cycle {	
+	100% {
+		background-position: -900px 0;
+	}
+}
+
+@keyframes fly-right-one {
+	
+	0% {
+		transform: scale(0.3) translateX(0);
+	}
+	
+	10% {
+		transform: translateY(2vh) translateX(10vw) scale(0.4);
+	}
+	
+	30% {
+		transform: translateY(0vh) translateX(30vw) scale(0.5);
+	}
+	
+	50% {
+		transform: translateY(4vh) translateX(50vw) scale(0.6);
+	}
+	
+	70% {
+		transform: translateY(2vh) translateX(70vw) scale(0.6);
+	}
+	
+	90% {
+		transform: translateY(0vh) translateX(90vw) scale(0.6);
+	}
+	
+	/* 60% {
+		transform: translateY(0vh) translateX(100vw) scale(0.6);
+	} */
+	
+	100% {
+		transform: translateY(0vh) translateX(110vw) scale(0.6);
+	}
+
 }

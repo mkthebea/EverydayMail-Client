@@ -59,7 +59,7 @@ const App = () => {
               {collapsed ? <div></div> : <div>EveryDay-Mail</div>}
             </Link>
           </div>
-          <Menu theme="light" mode="inline" inlineCollapsed={collapsed} style={{ marginTop: "10vh" }}>
+          <Menu theme="light" mode="inline" inlineCollapsed={collapsed} style={{ marginTop: "10vh", zIndex: "100" }}>
             {/* <Menu.Item key="accounts" icon={<MailOutlined />}> */}
             <SubMenu title="Accounts" icon={<MailOutlined />}>
               {accountsList.map((account) => {
