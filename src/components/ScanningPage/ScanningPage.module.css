@@ -10,11 +10,72 @@
 .scan_container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center;
+    align-items: center; */
     background-color: white;
     padding: 30px;
     border-radius: 10px;
     width: 85vw;
     height: 85vh;
 }
+
+.title {
+    font-size: 20px;
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.option_container {
+    /* background-color: red; */
+    /* margin-left: 10vw; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid rgb(144, 238, 144);
+    border-radius: 5px;
+    padding: 20px;
+    height: 40vh;
+    /* width: 70vw; */
+    /* align-self: center; */
+}
+
+.input_box {
+    width: 30vw;   
+    margin: 10px 0 10px 0;
+}
+
+.start_button {
+    width: 20vw;
+    height: 10vh;
+    margin: 10px 0 10px 0;
+    align-self: flex-end;
+    border: 0.5px solid white;
+    background-color: rgb(144, 238, 144, 0.3);
+    color: green;
+}
+
+.start_button:hover {
+    background-color: rgb(144, 238, 144);
+    border: 0.5px solid white;
+}
+
+.start_button:focus {
+    border: 0.5px solid white;
+    background-color: rgb(144, 238, 144, 0.3);
+    color: green;
+}
+
+.progress_container {
+    /* background-color: grey; */
+    width: 100%;
+    height: 40vh;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+}
+
+/* .progress {
+    width: 100px;
+} */
