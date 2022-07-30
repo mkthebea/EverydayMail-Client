@@ -107,9 +107,12 @@ function SettingPage() {
               bordered
               dataSource={accountsList}
               renderItem={(item) => (
-                <List.Item>
+                <List.Item className={styles.list_item}>
                   {/* <Typography.Text mark>[ITEM]</Typography.Text>  */}
                   {item}
+                  <Button type="text" className={styles.delete_button}>
+                    삭제
+                  </Button>
                 </List.Item>
               )}
             />

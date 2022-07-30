@@ -61,3 +61,12 @@
     width: 30vw;   
     margin: 10px 0 10px 0;
 }
+
+.delete_button {
+    color: green;
+}
+
+.list_item {
+    display: flex;
+    justify-content: space-between;
+}
