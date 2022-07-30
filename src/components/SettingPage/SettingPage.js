@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Input, DatePicker, Tabs, Switch, Button, message } from "antd";
+import { Input, DatePicker, Tabs, Switch, Button, message, Divider, List, Typography } from "antd";
 import styles from "./SettingPage.module.css";
 
 function SettingPage() {
+  // Tab 1
   const { TabPane } = Tabs;
   const { RangePicker } = DatePicker;
 
@@ -23,11 +24,6 @@ function SettingPage() {
       return newValue;
     });
   };
-  // const value = {
-  //   spam: "",
-  //   time: "",
-  //   word: "",
-  // };
 
   const onChangeTab = (key) => {
     console.log(key);
@@ -57,6 +53,9 @@ function SettingPage() {
       message.info("저장됨");
     }
   };
+
+  // Tab 2
+  const accountsList = ["abcd@naver.com", "1234@daum.net", "qwer@google.com"];
 
   return (
     <div className={styles.container}>
@@ -102,7 +101,18 @@ function SettingPage() {
             </Button>
           </TabPane>
           <TabPane tab="메일 계정 관리" key="2">
-            Content of Tab Pane 2
+            <List
+              header={<div>메일 계정 목록</div>}
+              // footer={<div>Footer</div>}
+              bordered
+              dataSource={accountsList}
+              renderItem={(item) => (
+                <List.Item>
+                  {/* <Typography.Text mark>[ITEM]</Typography.Text>  */}
+                  {item}
+                </List.Item>
+              )}
+            />
           </TabPane>
           <TabPane tab="사용자 정보" key="3">
             Content of Tab Pane 3
