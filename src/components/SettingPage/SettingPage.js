@@ -1,16 +1,61 @@
-import React from "react";
-import { Tabs, Switch, Button } from "antd";
+import React, { useState } from "react";
+import { Input, DatePicker, Tabs, Switch, Button, message } from "antd";
 import styles from "./SettingPage.module.css";
 
 function SettingPage() {
   const { TabPane } = Tabs;
+  const { RangePicker } = DatePicker;
+
+  const [spam, setSpam] = useState(false);
+  const [time, setTime] = useState(false);
+  const [word, setWord] = useState(false);
+
+  const [value, setValue] = useState({
+    spam: "",
+    time: "",
+    word: "",
+  });
+
+  const changeValue = (key, value) => {
+    setValue((current) => {
+      let newValue = { ...current };
+      newValue[key] = value;
+      return newValue;
+    });
+  };
+  // const value = {
+  //   spam: "",
+  //   time: "",
+  //   word: "",
+  // };
 
   const onChangeTab = (key) => {
     console.log(key);
   };
 
-  const onChangeSwitch = (checked) => {
-    console.log(`switch to ${checked}`);
+  const onChangeSwitchSpam = (checked) => {
+    console.log(`Spam: switch to ${checked}`);
+    setSpam(checked);
+    if (!checked) changeValue("spam", "");
+  };
+  const onChangeSwitchTime = (checked) => {
+    console.log(`Time: switch to ${checked}`);
+    setTime(checked);
+    if (!checked) changeValue("time", "");
+  };
+  const onChangeSwitchWord = (checked) => {
+    console.log(`Word: switch to ${checked}`);
+    setWord(checked);
+    if (!checked) changeValue("word", "");
+  };
+
+  const saveSetting = () => {
+    console.log(value);
+    if ((spam && value["spam"] === "") || (time && value["time"] === "") || (word && value["word"] === "")) {
+      message.info("비어있는 값을 입력하세요");
+    } else {
+      message.info("저장됨");
+    }
   };
 
   return (
@@ -22,22 +67,39 @@ function SettingPage() {
             <div className={styles.option_container}>
               <div className={styles.option}>스팸 단어가 포함된 경우 즉시 삭제</div>
               <div>
-                <Switch defaultChecked onChange={onChangeSwitch} />
+                <Switch defaultChecked={false} onChange={onChangeSwitchSpam} />
+                {spam ? (
+                  <div>
+                    <Input onChange={(event) => changeValue("spam", event.target.value)} placeholder="스팸 단어 입력" className={styles.input_box} />
+                  </div>
+                ) : null}
               </div>
             </div>
             <div className={styles.option_container}>
               <div className={styles.option}>기간 내 읽지 않은 메일 자동 삭제</div>
               <div>
-                <Switch defaultChecked onChange={onChangeSwitch} />
+                <Switch defaultChecked={false} onChange={onChangeSwitchTime} />
+                {time ? (
+                  <div>
+                    <RangePicker onChange={(date, dateString) => changeValue("time", dateString)} className={styles.input_box} />
+                  </div>
+                ) : null}
               </div>
             </div>
             <div className={styles.option_container}>
               <div className={styles.option}> 중요 단어 포함 메일 삭제 안함</div>
               <div>
-                <Switch defaultChecked onChange={onChangeSwitch} />
+                <Switch defaultChecked={false} onChange={onChangeSwitchWord} />
+                {word ? (
+                  <div>
+                    <Input onChange={(event) => changeValue("word", event.target.value)} placeholder="중요 단어 입력" className={styles.input_box} />
+                  </div>
+                ) : null}
               </div>
             </div>
-            <Button className={styles.save_button}>Save</Button>
+            <Button className={styles.save_button} onClick={saveSetting}>
+              Save
+            </Button>
           </TabPane>
           <TabPane tab="메일 계정 관리" key="2">
             Content of Tab Pane 2

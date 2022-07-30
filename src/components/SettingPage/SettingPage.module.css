@@ -44,6 +44,7 @@
 .option_container {
     display: flex;
     /* padding: 10px; */
+    height: 35vh;
 }
 
 .option {
@@ -54,4 +55,9 @@
     /* margin-right: 50px; */
     width: 10vw;
     align-self: flex-end;
+}
+
+.input_box {
+    width: 30vw;   
+    margin: 10px 0 10px 0;
 }
