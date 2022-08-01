@@ -55,7 +55,14 @@ function SettingPage() {
   };
 
   // Tab 2
-  const accountsList = ["abcd@naver.com", "1234@daum.net", "qwer@google.com"];
+  // const accountsList = ["abcd@naver.com", "1234@daum.net", "qwer@google.com"];
+  const [accountsList, setAccountsList] = useState(["abcd@naver.com", "1234@daum.net", "qwer@google.com"]);
+
+  const onDelete = (item) => {
+    // 삭제 요청 보내기!
+    console.log("delete: ", item);
+    setAccountsList(accountsList.filter((i) => i !== item));
+  };
 
   return (
     <div className={styles.container}>
@@ -110,7 +117,7 @@ function SettingPage() {
                 <List.Item className={styles.list_item}>
                   {/* <Typography.Text mark>[ITEM]</Typography.Text>  */}
                   {item}
-                  <Button type="text" className={styles.delete_button}>
+                  <Button type="text" className={styles.delete_button} onClick={() => onDelete(item)}>
                     삭제
                   </Button>
                 </List.Item>
