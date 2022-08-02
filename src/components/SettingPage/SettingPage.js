@@ -125,7 +125,7 @@ function SettingPage() {
             />
           </TabPane>
           <TabPane tab="사용자 정보" key="3">
-            Content of Tab Pane 3
+            사용자 정보
           </TabPane>
         </Tabs>
       </div>
