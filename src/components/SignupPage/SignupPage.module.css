@@ -18,3 +18,19 @@
     width: 85vw;
     height: 85vh;
 }
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 50px;
+    width: 100%;
+    background-color: rgb(250,250,250);
+    border-radius: 10px;
+    height: 85vh;
+}
+
+.text {
+    font-size: 20px;
+    margin: 30px;
+}

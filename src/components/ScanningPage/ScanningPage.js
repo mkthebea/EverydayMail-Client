@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input, Radio, Space, DatePicker, Divider, Button, message, Progress, Steps } from "antd";
+import { Input, Radio, Space, DatePicker, Button, message, Steps } from "antd";
 import { LoadingOutlined, SmileOutlined, EditOutlined, ScanOutlined } from "@ant-design/icons";
 import styles from "./ScanningPage.module.css";
 
@@ -7,10 +7,9 @@ function ScanningPage() {
   const [mode, setMode] = useState(0); // 스캐닝 모드
   const [value, setValue] = useState(""); // 스캐닝 모드에 따른 설정값
   const [currentProgress, setCurrentProgress] = useState(0);
-  const percent = 90;
+  const [done, setDone] = useState(false);
 
   const onChange = (e) => {
-    // console.log("radio checked", e.target.mode);
     setMode(e.target.value);
     setValue("");
   };
@@ -18,14 +17,34 @@ function ScanningPage() {
   const { RangePicker } = DatePicker;
   const { Step } = Steps;
 
+  const scanning = () => {
+    setTimeout(() => {
+      // 완료됐는지 서버에 요청 보내기
+      const res = true; // 응답 저장: true면 완료
+      setDone(res);
+      setCurrentProgress(2);
+    }, 3000);
+    // while (!done) {
+    //   setTimeout(() => {
+    //     // 완료됐는지 서버에 요청 보내기
+    //     const res = true; // 응답 저장: true면 완료
+    //     setDone(res);
+    //   }, 3000);
+    // }
+    // if (done) {
+    //   setCurrentProgress(2);
+    // }
+  };
+
   const startScanning = () => {
     if (mode == 0) {
-      message.info("스캔 모드를 선택하세요");
+      message.error("스캔 모드를 선택하세요");
     } else if (mode !== 1 && value == "") {
-      message.info("값을 입력하세요");
+      message.error("값을 입력하세요");
     } else {
       setCurrentProgress(1);
       console.log({ scanningMode: mode, value: value });
+      scanning();
     }
   };
 
@@ -66,19 +85,7 @@ function ScanningPage() {
           Start
         </Button>
         <div className={styles.progress_container}>
-          {/* <Progress
-            type="circle"
-            strokeColor={{
-              "0%": "#108ee9",
-              "100%": "#87d068",
-            }}
-            percent={percent}
-            width={200}
-          /> */}
           <Steps current={currentProgress}>
-            {/* <Step status="finish" title="Select Scanning Mode" icon={<EditOutlined />} />
-            <Step status="process" title="Scan" icon={<LoadingOutlined />} />
-            <Step status="wait" title="Done" icon={<SmileOutlined />} /> */}
             <Step title="Select Scanning Mode" icon={<EditOutlined />} />
             <Step title="Scan" icon={currentProgress == 1 ? <LoadingOutlined /> : <ScanOutlined />} />
             <Step title="Done" icon={<SmileOutlined />} />
