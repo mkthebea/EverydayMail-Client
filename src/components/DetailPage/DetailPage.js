@@ -10,11 +10,14 @@ function DetailPage() {
     ignoreQueryPrefix: true,
   });
 
+  // 구독 해지 url
+
   const adSender = [
     {
       name: "CAU",
       email: "cau@cau.ac.kr",
       mailCount: 500,
+      url: "xknzkls",
     },
     {
       name: "Naver",
@@ -78,6 +81,7 @@ function DetailPage() {
                 title={item.name}
                 description={item.email}
               />
+              {item.url ? <div>구독 해지 링크: {item.url}</div> : <></>}
               <div style={{ marginRight: "50px" }}>mail count: {item.mailCount}</div>
             </List.Item>
           )}

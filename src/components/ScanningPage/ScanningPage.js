@@ -3,6 +3,8 @@ import { Input, Radio, Space, DatePicker, Button, message, Steps } from "antd";
 import { LoadingOutlined, SmileOutlined, EditOutlined, ScanOutlined } from "@ant-design/icons";
 import styles from "./ScanningPage.module.css";
 
+// 연결된 계정들 체크리스트로 보여주고 스캔 돌릴 계정 선택하도록 수정
+
 function ScanningPage() {
   const [mode, setMode] = useState(0); // 스캐닝 모드
   const [value, setValue] = useState(""); // 스캐닝 모드에 따른 설정값
@@ -43,7 +45,7 @@ function ScanningPage() {
       message.error("값을 입력하세요");
     } else {
       setCurrentProgress(1);
-      console.log({ scanningMode: mode, value: value });
+      console.log({ selectedMails: "", scanningMode: mode, value: value });
       scanning();
     }
   };
