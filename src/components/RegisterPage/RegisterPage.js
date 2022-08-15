@@ -1,13 +1,13 @@
 import React, { useState, useEffect, Component } from "react";
 import styles from "./RegisterPage.module.css";
-import { Button, Form, Input, Select, Result, InputNumber, Typography } from "antd";
-// import { Button, Form, Input, Select, Space, Tooltip, Typography } from 'antd';
+import { Button, Form, Input, Select, Result } from "antd";
 import { CloseCircleOutlined } from "@ant-design/icons";
+import axios from "axios";
 
 function RegisterPage() {
-  const [success, setSuccess] = useState("");
+  const [status, setStatus] = useState("");
+  const [registeredEmail, setRegisteredEmail] = useState("");
   const { Option } = Select;
-  const { Paragraph, Text } = Typography;
   const layout = {
     labelCol: {
       span: 8,
@@ -16,36 +16,23 @@ function RegisterPage() {
       span: 8,
     },
   };
-  const validateMessages = {
-    required: "${label} is required!",
-    types: {
-      email: "${label} is not a valid email!",
-      number: "${label} is not a valid number!",
-    },
-    number: {
-      range: "${label} must be between ${min} and ${max}",
-    },
-  };
 
-  const registeredAccountsList = ["test@naver.com"];
-
-  const onFinish = (values) => {
-    if (registeredAccountsList.includes(values.email.id + values.email.host)) {
-      setSuccess("overlap");
-    }
-    // 백엔드 요청 success일 경우
-    else setSuccess("success");
-    console.log(values);
+  const onFinish = async (values) => {
+    const response = await axios.post("https://87e22f10-f2a1-494c-8ae5-71f15eaa1823.mock.pstmn.io/api/register", values);
+    // console.log("register send data: ", values);
+    // console.log("register response: ", response);
+    setStatus(response.data.status);
+    setRegisteredEmail(values.email.id + values.email.host);
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.form_container}>
-        {success === "success" ? (
+        {status === "success" ? (
           <Result
             status="success"
             title="Successfully Registered Your Account!"
-            subTitle="Registered: molly5596@naver.com"
+            subTitle={"Registered: " + registeredEmail}
             extra={[
               <Button
                 type="primary"
@@ -66,68 +53,60 @@ function RegisterPage() {
               </Button>,
             ]}
           />
-        ) : success === "overlap" ? (
-          <>
-            <Result
-              status="error"
-              title="Submission Failed"
-              subTitle="This email has already been registered to another account."
-              extra={[
-                <Button
-                  type="primary"
-                  key="console"
-                  onClick={() => {
-                    window.location.replace("/");
-                  }}
-                >
-                  Go Home
-                </Button>,
-                <Button
-                  key="register"
-                  onClick={() => {
-                    window.location.replace("/register");
-                  }}
-                >
-                  Register Another Account
-                </Button>,
-              ]}
-            >
-              {/* <div className="desc">
-                <Paragraph>
-                  <Text
-                    strong
-                    style={{
-                      fontSize: 16,
-                    }}
-                  >
-                    The content you submitted has the following error:
-                  </Text>
-                </Paragraph>
-                <Paragraph>
-                  <CloseCircleOutlined className="site-result-demo-error-icon" /> Your account has been frozen. <a>Thaw immediately &gt;</a>
-                </Paragraph>
-                <Paragraph>
-                  <CloseCircleOutlined className="site-result-demo-error-icon" /> Your account is not yet eligible to apply. <a>Apply Unlock &gt;</a>
-                </Paragraph>
-              </div> */}
-            </Result>
-          </>
+        ) : status === "overlap" ? (
+          <Result
+            status="error"
+            title="Submission Failed"
+            subTitle="This email has already been registered to another account."
+            extra={[
+              <Button
+                type="primary"
+                key="console"
+                onClick={() => {
+                  window.location.replace("/");
+                }}
+              >
+                Go Home
+              </Button>,
+              <Button
+                key="register"
+                onClick={() => {
+                  window.location.replace("/register");
+                }}
+              >
+                Register Another Account
+              </Button>,
+            ]}
+          />
+        ) : status === "fail" ? (
+          <Result
+            status="error"
+            title="Authentication Failed"
+            subTitle="The passwords for the accounts do not match."
+            extra={[
+              <Button
+                type="primary"
+                key="console"
+                onClick={() => {
+                  window.location.replace("/");
+                }}
+              >
+                Go Home
+              </Button>,
+              <Button
+                key="register"
+                onClick={() => {
+                  window.location.replace("/register");
+                }}
+              >
+                Register Again
+              </Button>,
+            ]}
+          />
         ) : (
           <>
             <div className={styles.title}>새 이메일 계정 등록</div>
-            <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages} className={styles.form}>
-              {/* <Form.Item
-            name={["user", "email"]}
-            label="Email"
-            rules={[
-              {
-                type: "email",
-                required: true,
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item> */}
+            <Form {...layout} name="nest-messages" onFinish={onFinish} className={styles.form}>
               <Form.Item label="Email">
                 <Input.Group compact>
                   <Form.Item
@@ -177,6 +156,7 @@ function RegisterPage() {
                 rules={[
                   {
                     required: true,
+                    message: "Password is required",
                   },
                 ]}
               >
