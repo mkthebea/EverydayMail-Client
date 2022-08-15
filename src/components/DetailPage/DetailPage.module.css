@@ -9,10 +9,25 @@
     /* padding: 20px 20px 20px 20px; */
 }
 
-.account_name {
+.list_header {
     padding-bottom: 30px;
-    font-size: 20px;
     /* color: green; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.account_text {
+    font-size: 20px;
+}
+.unsubscribe_desc {
+    font-size: 13px;
+    color: green;
+    margin-right: 20px;
+}
+.unsubscribe_desc:hover {
+    font-weight: bold;
+    color : green;
+    text-decoration: underline;
 }
 
 .sender_list_container {
@@ -28,4 +43,13 @@
     overflow-y: auto;
     background-color: rgb(250,250,250);
     border-radius: 10px;
+}
+
+.unsubscribe_link {
+    color: green;
+}
+
+.unsubscribe_link:hover {
+    color : green;
+    text-decoration: underline;
 }
