@@ -28,7 +28,7 @@ const App = () => {
   const [accountsList, setAccountsList] = useState([]);
   const fetchAccountsList = async () => {
     const response = await axios.get("https://87e22f10-f2a1-494c-8ae5-71f15eaa1823.mock.pstmn.io/api/accounts");
-    console.log("accountsList response: ", response);
+    // console.log("accountsList response: ", response);
     setAccountsList(response.data.accountsList);
   };
   useEffect(() => {
