@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import { Input, Radio, Space, DatePicker, Button, message, Steps } from "antd";
 import { LoadingOutlined, SmileOutlined, EditOutlined, ScanOutlined } from "@ant-design/icons";
 import styles from "./ScanningPage.module.css";
-
-// 연결된 계정들 체크리스트로 보여주고 스캔 돌릴 계정 선택하도록 수정
+import axios from "axios";
 
 function ScanningPage() {
   const [mode, setMode] = useState(0); // 스캐닝 모드
   const [value, setValue] = useState(""); // 스캐닝 모드에 따른 설정값
   const [currentProgress, setCurrentProgress] = useState(0);
-  const [done, setDone] = useState(false);
 
   const onChange = (e) => {
     setMode(e.target.value);
@@ -19,33 +17,27 @@ function ScanningPage() {
   const { RangePicker } = DatePicker;
   const { Step } = Steps;
 
-  const scanning = () => {
-    setTimeout(() => {
-      // 완료됐는지 서버에 요청 보내기
-      const res = true; // 응답 저장: true면 완료
-      setDone(res);
+  const scanning = async () => {
+    const response = await axios.post("https://87e22f10-f2a1-494c-8ae5-71f15eaa1823.mock.pstmn.io/api/scanning", { scanningMode: mode, value: value });
+    // console.log("scanning send data: ", { scanningMode: mode, value: value });
+    // console.log("scanning response: ", response);
+    if (response.data.success) {
       setCurrentProgress(2);
-    }, 3000);
-    // while (!done) {
-    //   setTimeout(() => {
-    //     // 완료됐는지 서버에 요청 보내기
-    //     const res = true; // 응답 저장: true면 완료
-    //     setDone(res);
-    //   }, 3000);
-    // }
-    // if (done) {
-    //   setCurrentProgress(2);
-    // }
+      message.success("스캔 완료!");
+    } else {
+      message.error("에러 발생");
+      setCurrentProgress(0);
+    }
   };
 
   const startScanning = () => {
-    if (mode == 0) {
+    if (mode === 0) {
       message.error("스캔 모드를 선택하세요");
-    } else if (mode !== 1 && value == "") {
+    } else if (mode !== 1 && value === "") {
       message.error("값을 입력하세요");
     } else {
       setCurrentProgress(1);
-      console.log({ selectedMails: "", scanningMode: mode, value: value });
+      // console.log({ selectedMails: "", scanningMode: mode, value: value });
       scanning();
     }
   };
@@ -89,7 +81,7 @@ function ScanningPage() {
         <div className={styles.progress_container}>
           <Steps current={currentProgress}>
             <Step title="Select Scanning Mode" icon={<EditOutlined />} />
-            <Step title="Scan" icon={currentProgress == 1 ? <LoadingOutlined /> : <ScanOutlined />} />
+            <Step title="Scan" icon={currentProgress === 1 ? <LoadingOutlined /> : <ScanOutlined />} />
             <Step title="Done" icon={<SmileOutlined />} />
           </Steps>
         </div>
