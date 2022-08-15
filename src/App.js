@@ -25,15 +25,16 @@ const App = () => {
   const [collapsed, setCollapsed] = useState(true);
 
   // 계정 리스트 get
-  // const [accountsList, setAccountsList] = useState([]);
-  // const fetchAccountsList = async () => {
-  //   const response = await axios.get("https://66d970b7-c9c2-4dfb-be10-e28048802b89.mock.pstmn.io/api/accounts");
-  //   setAccountsList(response.data.accounts);
-  // };
-  // useEffect(() => {
-  //   fetchAccountsList();
-  // }, []);
-  const accountsList = ["abcd@naver.com", "1234@daum.net", "qwer@google.com"];
+  const [accountsList, setAccountsList] = useState([]);
+  const fetchAccountsList = async () => {
+    const response = await axios.get("https://87e22f10-f2a1-494c-8ae5-71f15eaa1823.mock.pstmn.io/api/accounts");
+    console.log("accountsList response: ", response);
+    setAccountsList(response.data.accountsList);
+  };
+  useEffect(() => {
+    fetchAccountsList();
+  }, []);
+  // const accountsList = ["abcd@naver.com", "1234@daum.net", "qwer@google.com"];
 
   // 로그인 상태 가져오기
   // const [login, setLogin] = useState(false);

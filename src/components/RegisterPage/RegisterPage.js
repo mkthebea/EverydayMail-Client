@@ -183,9 +183,6 @@ function RegisterPage() {
                 <Input.Password />
               </Form.Item>
 
-              <Form.Item name={["user", "memo"]} label="Memo">
-                <Input.TextArea />
-              </Form.Item>
               <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
                 <Button type="primary" htmlType="submit">
                   Submit

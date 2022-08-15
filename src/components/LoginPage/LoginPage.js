@@ -5,6 +5,8 @@ import { Button, Checkbox, Form, Input } from "antd";
 import axios from "axios";
 import styles from "./LoginPage.module.css";
 
+// 비밀번호 두 번 입력 => 같으면 성공
+
 function LoginPage() {
   // 로그인 상태 관리
   // const [login, setLogin] = useState(false);

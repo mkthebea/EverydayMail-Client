@@ -5,12 +5,18 @@ import axios from "axios";
 
 function SignupPage() {
   const [signUp, setSignUp] = useState(false);
+
   const fetchSignUp = async (values) => {
-    const response = await axios.post("https://87e22f10-f2a1-494c-8ae5-71f15eaa1823.mock.pstmn.io/signup", values);
-    console.log("전송 데이터: ", values, "응답: ", response);
-    setSignUp(response.data.success);
-    if (!signUp) message.error("에러 발생");
+    await axios.post("https://87e22f10-f2a1-494c-8ae5-71f15eaa1823.mock.pstmn.io/signup", values).then((response) => {
+      if (response.data.success) {
+        setSignUp(response.data.success);
+      } else {
+        message.error("에러 발생");
+      }
+      console.log("전송 데이터: ", values, "\n응답: ", response);
+    });
   };
+
   const onFinish = async (values) => {
     console.log("values: ", values);
     fetchSignUp(values);
