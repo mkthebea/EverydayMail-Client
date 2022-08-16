@@ -27,7 +27,7 @@ const App = () => {
   // 계정 리스트 get
   const [accountsList, setAccountsList] = useState([]);
   const fetchAccountsList = async () => {
-    const response = await axios.get("https://87e22f10-f2a1-494c-8ae5-71f15eaa1823.mock.pstmn.io/api/accounts");
+    const response = await axios.get("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/accounts/");
     // console.log("accountsList response: ", response);
     setAccountsList(response.data.accountsList);
   };

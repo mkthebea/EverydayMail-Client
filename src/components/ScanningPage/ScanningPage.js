@@ -18,7 +18,7 @@ function ScanningPage() {
   const { Step } = Steps;
 
   const scanning = async () => {
-    const response = await axios.post("https://87e22f10-f2a1-494c-8ae5-71f15eaa1823.mock.pstmn.io/api/scanning", { scanningMode: mode, value: value });
+    const response = await axios.post("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/scanning/", { scanningMode: mode, value: value });
     // console.log("scanning send data: ", { scanningMode: mode, value: value });
     // console.log("scanning response: ", response);
     if (response.data.success) {

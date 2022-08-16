@@ -18,7 +18,7 @@ function RegisterPage() {
   };
 
   const onFinish = async (values) => {
-    const response = await axios.post("https://87e22f10-f2a1-494c-8ae5-71f15eaa1823.mock.pstmn.io/api/register", values);
+    const response = await axios.post("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/register/", values);
     // console.log("register send data: ", values);
     // console.log("register response: ", response);
     setStatus(response.data.status);
