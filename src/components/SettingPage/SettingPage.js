@@ -10,21 +10,21 @@ function SettingPage() {
 
   // 세팅 데이터 GET
   const [settingData, setSettingData] = useState({
+    accountsList: [],
     setting: {
       spam: {
-        status: false,
+        status: true,
         value: "",
       },
       time: {
-        status: false,
+        status: true,
         value: [],
       },
       word: {
-        status: false,
+        status: true,
         value: "",
       },
     },
-    accountsList: [],
     userInfo: {
       id: "",
       password: "",
@@ -34,7 +34,7 @@ function SettingPage() {
     const response = await axios.get("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/setting/");
     console.log("setting response: ", response);
     setSettingData(response.data.settingData);
-    console.log(settingData);
+    // console.log(settingData);
   };
   useEffect(() => {
     fetchSettingData();
@@ -65,28 +65,13 @@ function SettingPage() {
   const { TabPane } = Tabs;
 
   // Tab 1
-  // const [spam, setSpam] = useState(settingData.setting.spam.status);
-  // const [time, setTime] = useState(settingData.setting.time.status);
-  // const [word, setWord] = useState(settingData.setting.word.status);
-  // const [value, setValue] = useState({
-  //   spam: settingData.setting.spam.value,
-  //   time: settingData.setting.time.value,
-  //   word: settingData.setting.word.value,
-  // });
-  const [value, setValue] = useState(settingData.setting);
-  const changeValue = (key, value) => {
-    setValue((current) => {
-      let newValue = { ...current };
-      newValue[key].value = value;
-      return newValue;
-    });
-  };
   const selectAfter = (
     <Select
-      defaultValue={settingData.setting.time.value[1]}
+      value={settingData.setting.time.value[1]}
       style={{
         width: 100,
       }}
+      onChange={(event) => changeValue("time_select", event)}
     >
       <Option value="day">일</Option>
       <Option value="week">주</Option>
@@ -94,44 +79,50 @@ function SettingPage() {
       <Option value="year">년</Option>
     </Select>
   );
-  const onChangeSwitchSpam = (checked) => {
-    console.log(value);
-    // console.log(`Spam: switch to ${checked}`);
-    // setSpam(checked);
-    setValue((current) => {
+
+  const changeValue = (key, value) => {
+    if (key === "time") {
+      setSettingData((current) => {
+        let newValue = { ...current };
+        newValue.setting["time"].value[0] = value;
+        return newValue;
+      });
+    } else if (key === "time_select") {
+      setSettingData((current) => {
+        let newValue = { ...current };
+        newValue.setting["time"].value[1] = value;
+        return newValue;
+      });
+    } else {
+      setSettingData((current) => {
+        let newValue = { ...current };
+        newValue.setting[key].value = value;
+        return newValue;
+      });
+    }
+  };
+
+  const onChangeSwitch = (key, checked) => {
+    // console.log(key, checked);
+    setSettingData((current) => {
       let newValue = { ...current };
-      newValue["spam"].status = checked;
+      newValue.setting[key].status = checked;
       return newValue;
     });
-    if (!checked) changeValue("spam", "");
+    if (!checked) changeValue(key, "");
   };
-  const onChangeSwitchTime = (checked) => {
-    // console.log(`Time: switch to ${checked}`);
-    // setTime(checked);
-    setValue((current) => {
-      let newValue = { ...current };
-      newValue["time"].status = checked;
-      return newValue;
-    });
-    if (!checked) changeValue("time", "");
-  };
-  const onChangeSwitchWord = (checked) => {
-    // console.log(`Word: switch to ${checked}`);
-    // setWord(checked);
-    setValue((current) => {
-      let newValue = { ...current };
-      newValue["word"].status = checked;
-      return newValue;
-    });
-    if (!checked) changeValue("word", "");
-  };
+
   const saveSetting = async () => {
-    if ((value["spam"].status && value["spam"].value === "") || (value["time"].status && value["time"].value === "") || (value["word"].status && value["word"].value === "")) {
+    if (
+      (settingData.setting.spam.status && settingData.setting.spam.value === "") ||
+      (settingData.setting.time.status && (settingData.setting.time.value[0] === "" || settingData.setting.time.value[1] === "")) ||
+      (settingData.setting.word.status && settingData.setting.word.value === "")
+    ) {
       message.error("비어있는 값을 입력하세요");
     } else {
       // 설정 변경 요청 PUT
-      const response = await axios.put("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/setting/setting/", value);
-      console.log("setting send data: ", value);
+      const response = await axios.put("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/setting/setting/", settingData.setting);
+      console.log("setting send data: ", settingData.setting);
       console.log("response: ", response);
       if (response.data.success) {
         message.success("저장됨");
@@ -189,10 +180,10 @@ function SettingPage() {
             <div className={styles.option_container}>
               <div className={styles.option}>스팸 단어가 포함된 경우 즉시 삭제</div>
               <div>
-                <Switch defaultChecked={settingData.setting.spam.status} onChange={onChangeSwitchSpam} />
-                {value["spam"].status ? (
+                <Switch checked={settingData.setting.spam.status} onChange={(event) => onChangeSwitch("spam", event)} />
+                {settingData.setting.spam.status ? (
                   <div>
-                    <Input onChange={(event) => changeValue("spam", event.target.value)} defaultValue={settingData.setting.spam.value} placeholder="스팸 단어 입력" className={styles.input_box} />
+                    <Input onChange={(event) => changeValue("spam", event.target.value)} value={settingData.setting.spam.value} placeholder="스팸 단어 입력" className={styles.input_box} />
                   </div>
                 ) : null}
               </div>
@@ -200,10 +191,16 @@ function SettingPage() {
             <div className={styles.option_container}>
               <div className={styles.option}>기간 내 읽지 않은 메일 자동 삭제</div>
               <div>
-                <Switch defaultChecked={settingData.setting.time.status} onChange={onChangeSwitchTime} />
-                {value["time"].status ? (
+                <Switch checked={settingData.setting.time.status} onChange={(event) => onChangeSwitch("time", event)} />
+                {settingData.setting.time.status ? (
                   <div className={styles.range_box}>
-                    <Input addonAfter={selectAfter} defaultValue={settingData.setting.time.value[0]} placeholder="기간" style={{ width: "18vw" }} />
+                    <Input
+                      addonAfter={selectAfter}
+                      onChange={(event) => changeValue("time", event.target.value)}
+                      value={settingData.setting.time.value[0]}
+                      placeholder="기간"
+                      style={{ width: "18vw" }}
+                    />
                     <span> 동안 읽지 않은 메일 삭제</span>
                   </div>
                 ) : null}
@@ -212,10 +209,10 @@ function SettingPage() {
             <div className={styles.option_container}>
               <div className={styles.option}> 중요 단어 포함 메일 삭제 안함</div>
               <div>
-                <Switch defaultChecked={settingData.setting.word.status} onChange={onChangeSwitchWord} />
-                {value["word"].status ? (
+                <Switch checked={settingData.setting.word.status} onChange={(event) => onChangeSwitch("word", event)} />
+                {settingData.setting.word.status ? (
                   <div>
-                    <Input onChange={(event) => changeValue("word", event.target.value)} defaultValue={settingData.setting.word.value} placeholder="중요 단어 입력" className={styles.input_box} />
+                    <Input onChange={(event) => changeValue("word", event.target.value)} value={settingData.setting.word.value} placeholder="중요 단어 입력" className={styles.input_box} />
                   </div>
                 ) : null}
               </div>
