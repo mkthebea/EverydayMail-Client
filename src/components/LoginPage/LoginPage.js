@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Checkbox, Form, Input, message } from "antd";
 import axios from "axios";
 import styles from "./LoginPage.module.css";
 
@@ -22,11 +22,21 @@ function LoginPage() {
     console.log("로그인 상태: ", login);
   };
 
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
+    const response = await axios.post("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/login/", values);
+
     // 로그인 성공시 메인 페이지로 이동
-    console.log("Success:", values);
-    window.location.replace("/");
-    fetchLogin();
+    console.log("login send data:", values);
+    console.log("login response: ", response);
+    if (response.data.success) {
+      message.success("로그인 성공");
+      setTimeout(() => {
+        window.location.replace("/");
+      }, 1000);
+      fetchLogin();
+    } else {
+      message.error("로그인 실패");
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
