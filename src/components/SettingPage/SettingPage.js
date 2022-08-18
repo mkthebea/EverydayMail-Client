@@ -10,7 +10,6 @@ function SettingPage() {
 
   // 세팅 데이터 GET
   const [settingData, setSettingData] = useState({
-    accountsList: [],
     setting: {
       spam: {
         status: true,
@@ -25,6 +24,7 @@ function SettingPage() {
         value: "",
       },
     },
+    accountsList: [],
     userInfo: {
       id: "",
       password: "",
@@ -32,7 +32,7 @@ function SettingPage() {
   });
   const fetchSettingData = async () => {
     const response = await axios.get("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/setting/");
-    console.log("setting response: ", response);
+    // console.log("setting response: ", response);
     setSettingData(response.data.settingData);
     // console.log(settingData);
   };
@@ -122,8 +122,8 @@ function SettingPage() {
     } else {
       // 설정 변경 요청 PUT
       const response = await axios.put("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/setting/setting/", settingData.setting);
-      console.log("setting send data: ", settingData.setting);
-      console.log("response: ", response);
+      // console.log("setting send data: ", settingData.setting);
+      // console.log("response: ", response);
       if (response.data.success) {
         message.success("저장됨");
       } else {
@@ -133,40 +133,42 @@ function SettingPage() {
   };
 
   // Tab 2
-  // const [accountsList, setAccountsList] = useState(["abcd@naver.com", "1234@daum.net", "qwer@google.com", "1@naver.com", "2@naver.com"]);
-
-  const onDelete = (item) => {
-    // 삭제 요청 보내기!
-    console.log("delete: ", item);
-    const isSuccess = true; //삭제 요청 응답
-    if (isSuccess) {
+  const onDelete = async (item) => {
+    const response = await axios.delete("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/setting/accounts/", item);
+    console.log("delete send data: ", item);
+    console.log("delete response: ", response);
+    if (response.data.success) {
       message.success("계정 삭제에 성공했습니다.");
       // 세팅 데이터 패치
+      fetchSettingData();
     } else {
       message.error("에러 발생");
     }
   };
 
   // Tab3
-  const [userInfo, setUserInfo] = useState(settingData.userInfo);
-
   const saveInfo = async () => {
-    // 저장 요청 보내기
-    // const response = await axios.post("");
-    console.log(userInfo);
-    const isSuccess = true; // 저장 요청 응답
-    if (isSuccess) {
-      message.success("저장되었습니다.");
-      // 세팅 데이터 패치
+    if (settingData.userInfo.id === "" || settingData.userInfo.password === "") {
+      message.error("비어있는 값을 입력하세요.");
     } else {
-      message.error("에러 발생");
+      // 저장 요청 보내기
+      const response = await axios.put("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/setting/uesr_info/", settingData.userInfo);
+      console.log("user info send data: ", settingData.userInfo);
+      console.log("user info response: ", response);
+      if (response.data.success) {
+        message.success("저장되었습니다.");
+        // 세팅 데이터 패치
+        fetchSettingData();
+      } else {
+        message.error("에러 발생");
+      }
     }
   };
 
   const changeInfo = (key, value) => {
-    setUserInfo((current) => {
+    setSettingData((current) => {
       let newValue = { ...current };
-      newValue[key] = value;
+      newValue.userInfo[key] = value;
       return newValue;
     });
   };
@@ -224,9 +226,6 @@ function SettingPage() {
           <TabPane tab="메일 계정 관리" key="2">
             <div className={styles.scroll_list}>
               <List
-                // header={<div>메일 계정 목록</div>}
-                // footer={<div>Footer</div>}
-                // bordered
                 dataSource={settingData.accountsList}
                 renderItem={(item) => (
                   <List.Item className={styles.list_item}>
