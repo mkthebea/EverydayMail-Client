@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Checkbox, Form, Input, message } from "antd";
+import { Button, Checkbox, Form, Input, message, Result } from "antd";
 import styles from "./SignupPage.module.css";
 import axios from "axios";
 
@@ -11,17 +11,16 @@ function SignupPage() {
       if (response.data.success) {
         setSignUp(response.data.success);
       } else {
-        message.error("에러 발생");
+        message.error(response.data.errorMessage);
       }
-      console.log("전송 데이터: ", values, "\n응답: ", response);
+      console.log("signup send data: ", values);
+      console.log("signup response: ", response);
     });
   };
 
   const onFinish = async (values) => {
-    console.log("values: ", values);
+    // console.log("values: ", values);
     fetchSignUp(values);
-    // console.log("Success:", values);
-    // window.location.replace("/");
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -31,7 +30,29 @@ function SignupPage() {
     <div className={styles.container}>
       <div className={styles.form_container}>
         {signUp ? (
-          <div>회원 가입 성공!</div>
+          <Result
+            status="success"
+            title="Successfully signed up for EveryDay-Mail!"
+            extra={[
+              <Button
+                type="primary"
+                key="console"
+                onClick={() => {
+                  window.location.replace("/");
+                }}
+              >
+                Go Home
+              </Button>,
+              <Button
+                key="register"
+                onClick={() => {
+                  window.location.replace("/register");
+                }}
+              >
+                Go to register your mail account
+              </Button>,
+            ]}
+          />
         ) : (
           <>
             <div className={styles.text}>Sign Up</div>
