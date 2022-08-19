@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Input, Tabs, Switch, Button, message, List, Select } from "antd";
+import { Input, Tabs, Switch, Button, message, List, Select, InputNumber } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import styles from "./SettingPage.module.css";
 import moment from "moment";
@@ -17,7 +17,8 @@ function SettingPage() {
       },
       time: {
         status: true,
-        value: [],
+        numValue: 0,
+        unitValue: "",
       },
       word: {
         status: true,
@@ -67,7 +68,7 @@ function SettingPage() {
   // Tab 1
   const selectAfter = (
     <Select
-      value={settingData.setting.time.value[1]}
+      value={settingData.setting.time.unitValue}
       style={{
         width: 100,
       }}
@@ -84,13 +85,13 @@ function SettingPage() {
     if (key === "time") {
       setSettingData((current) => {
         let newValue = { ...current };
-        newValue.setting["time"].value[0] = value;
+        newValue.setting["time"].numValue = value;
         return newValue;
       });
     } else if (key === "time_select") {
       setSettingData((current) => {
         let newValue = { ...current };
-        newValue.setting["time"].value[1] = value;
+        newValue.setting["time"].unitValue = value;
         return newValue;
       });
     } else {
@@ -115,15 +116,15 @@ function SettingPage() {
   const saveSetting = async () => {
     if (
       (settingData.setting.spam.status && settingData.setting.spam.value === "") ||
-      (settingData.setting.time.status && (settingData.setting.time.value[0] === "" || settingData.setting.time.value[1] === "")) ||
+      (settingData.setting.time.status && (settingData.setting.time.numValue === 0 || settingData.setting.time.unitValue === "")) ||
       (settingData.setting.word.status && settingData.setting.word.value === "")
     ) {
       message.error("비어있는 값을 입력하세요");
     } else {
       // 설정 변경 요청 PUT
       const response = await axios.put("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/setting/setting/", settingData.setting);
-      // console.log("setting send data: ", settingData.setting);
-      // console.log("response: ", response);
+      console.log("setting send data: ", settingData.setting);
+      console.log("response: ", response);
       if (response.data.success) {
         message.success("저장됨");
       } else {
@@ -196,13 +197,7 @@ function SettingPage() {
                 <Switch checked={settingData.setting.time.status} onChange={(event) => onChangeSwitch("time", event)} />
                 {settingData.setting.time.status ? (
                   <div className={styles.range_box}>
-                    <Input
-                      addonAfter={selectAfter}
-                      onChange={(event) => changeValue("time", event.target.value)}
-                      value={settingData.setting.time.value[0]}
-                      placeholder="기간"
-                      style={{ width: "18vw" }}
-                    />
+                    <InputNumber addonAfter={selectAfter} onChange={(event) => changeValue("time", event)} value={settingData.setting.time.numValue} placeholder="기간" style={{ width: "18vw" }} />
                     <span> 동안 읽지 않은 메일 삭제</span>
                   </div>
                 ) : null}
