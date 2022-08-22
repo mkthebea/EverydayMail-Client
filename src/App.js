@@ -2,7 +2,7 @@ import React, { useState, useEffect, Component } from "react";
 import { Link, BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import axios from "axios";
 
-import "./App.module.css";
+import styles from "./App.module.css";
 import "antd/dist/antd.min.css";
 import { ScanOutlined, LaptopOutlined, LoginOutlined, LogoutOutlined, SettingOutlined, PlusCircleOutlined, MenuFoldOutlined, MenuUnfoldOutlined, MailOutlined, MailFilled } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
@@ -51,7 +51,8 @@ const App = () => {
 
   return (
     <Router>
-      <Layout style={{ height: "100vh" }}>
+      <Layout style={{ height: "100vh" }} className={styles.font}>
+        {/* <Layout className={styles.font}> */}
         <Sider trigger={null} collapsible collapsed={collapsed} theme="light">
           <div className="logo" style={{ marginTop: "10vh", height: "20%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
             <Link to="/" style={{ color: "green", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", fontSize: "15px", fontWeight: "bolder" }}>

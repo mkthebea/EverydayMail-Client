@@ -59,3 +59,15 @@ body {
 .site-layout-background {
   background: #fff;
 }
+
+/* custom */
+@font-face {
+  font-family: 'RIDIBatang';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/RIDIBatang.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+.font {
+  /* height: 100vh; */
+  font-family: 'RIDIBatang', sans-serif;
+}
