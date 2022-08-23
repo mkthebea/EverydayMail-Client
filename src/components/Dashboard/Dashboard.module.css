@@ -20,6 +20,7 @@
 
 /* 절감한 탄소 배출량 */
 .co2Cut {
+    font-family: 'Cafe24SsurroundAir';
     /* position: absolute; */
     display: flex;
     flex-direction: column;
@@ -27,16 +28,20 @@
     justify-content: center;
     height: 30vh;
     width: 30vh;
-    background-color: rgb(144, 238, 144, 0.6);
+    /* background-color: rgb(144, 238, 144, 0.6); */
+    background: radial-gradient( rgb(169,218,235,0.3), rgb(169,218,235,0.8),rgb(169,218,235,0.3));
     border-radius: 30vh;
-    color: green;
-    font-size: 20px;
+    color: rgb(73,133,212);
+    /* text-shadow: -0.3px 0px gray, 0px 0.3px gray, 0.3px 0px gray, 0px -0.3px gray; */
+    font-size: 23px;
     font-weight: bolder;
     padding: 5px;
     margin: 10vh 65vw 0 0;
-    border: 5px solid white;
+    /* border: 5px solid white; */
     animation: bubble 2s infinite alternate;  
     z-index: 10;
+    box-shadow: rgba(200, 200, 200, 0.5) 0px 4px 8px;
+
 }
 /* 새싹 */
 .sprout {
@@ -74,7 +79,8 @@
     height: 5vh;
     position: absolute;
     bottom: 5vh;
-    box-shadow: 0 0 30px white;
+    /* box-shadow: 0 0 30px white; */
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 4px 8px;
     background-color: rgb(144, 238, 144, 0.6);
     border-radius: 5px;
     display: flex;
