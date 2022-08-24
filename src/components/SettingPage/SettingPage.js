@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useSyncExternalStore } from "react";
 import { Input, Tabs, Switch, Button, message, List, Select, InputNumber } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import styles from "./SettingPage.module.css";
@@ -26,10 +26,6 @@ function SettingPage() {
       },
     },
     accountsList: [],
-    userInfo: {
-      id: "",
-      password: "",
-    },
   });
   const fetchSettingData = async () => {
     const response = await axios.get("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/setting/");
@@ -148,28 +144,29 @@ function SettingPage() {
   };
 
   // Tab3
+  const [password, setPassword] = useState({ currentPassword: "", newPassword: "" });
   const saveInfo = async () => {
-    if (settingData.userInfo.id === "" || settingData.userInfo.password === "") {
+    if (password.currentPassword === "" || password.newPassword === "") {
       message.error("비어있는 값을 입력하세요.");
     } else {
       // 저장 요청 보내기
-      const response = await axios.put("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/setting/uesr_info/", settingData.userInfo);
-      console.log("user info send data: ", settingData.userInfo);
-      console.log("user info response: ", response);
+      const response = await axios.put("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/setting/password/", password);
+      console.log("change password send data: ", password);
+      console.log("change password response: ", response);
       if (response.data.success) {
         message.success("저장되었습니다.");
         // 세팅 데이터 패치
         fetchSettingData();
       } else {
-        message.error("에러 발생");
+        message.error(response.data.errorMessage);
       }
     }
   };
 
   const changeInfo = (key, value) => {
-    setSettingData((current) => {
+    setPassword((current) => {
       let newValue = { ...current };
-      newValue.userInfo[key] = value;
+      newValue[key] = value;
       return newValue;
     });
   };
@@ -242,21 +239,15 @@ function SettingPage() {
               </Button>
             </div>
           </TabPane>
-          <TabPane tab="사용자 정보" key="3">
+          <TabPane tab="비밀번호 변경" key="3">
             <div className={styles.tab3}>
               <div>
-                <div className={styles.tab3_text_container}>ID</div>
-                <Input size="large" onChange={(event) => changeInfo("id", event.target.value)} defaultValue={settingData.userInfo.id} prefix={<UserOutlined />} className={styles.input_box} />
+                <div className={styles.tab3_text_container}>현재 비밀번호</div>
+                <Input size="large" onChange={(event) => changeInfo("currentPassword", event.target.value)} prefix={<UserOutlined />} className={styles.input_box} />
               </div>
               <div>
-                <div className={styles.tab3_text_container}>PW</div>
-                <Input
-                  size="large"
-                  onChange={(event) => changeInfo("password", event.target.value)}
-                  defaultValue={settingData.userInfo.password}
-                  prefix={<UserOutlined />}
-                  className={styles.input_box}
-                />
+                <div className={styles.tab3_text_container}>새 비밀번호</div>
+                <Input size="large" onChange={(event) => changeInfo("newPassword", event.target.value)} prefix={<UserOutlined />} className={styles.input_box} />
               </div>
               <Button className={styles.save_button} onClick={saveInfo}>
                 저장
