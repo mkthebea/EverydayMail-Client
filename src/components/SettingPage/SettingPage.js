@@ -2,7 +2,6 @@ import React, { useState, useEffect, useSyncExternalStore } from "react";
 import { Input, Tabs, Switch, Button, message, List, Select, InputNumber } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import styles from "./SettingPage.module.css";
-import moment from "moment";
 import axios from "axios";
 
 function SettingPage() {
@@ -10,61 +9,41 @@ function SettingPage() {
 
   // 세팅 데이터 GET
   const [settingData, setSettingData] = useState({
-    setting: {
-      spam: {
-        status: true,
-        value: "",
-      },
-      time: {
-        status: true,
-        numValue: 0,
-        unitValue: "",
-      },
-      word: {
-        status: true,
-        value: "",
-      },
+    spam: {
+      status: 1,
+      value: "",
     },
-    accountsList: [],
+    time: {
+      status: 1,
+      numValue: 0,
+      unitValue: "",
+    },
+    word: {
+      status: 1,
+      value: "",
+    },
   });
   const fetchSettingData = async () => {
-    const response = await axios.get("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/setting/");
+    const response = await axios.get("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/myinfo/setting/");
     // console.log("setting response: ", response);
-    setSettingData(response.data.settingData);
-    // console.log(settingData);
+    setSettingData(response.data);
+  };
+  const [accountsList, setAccountsList] = useState([]);
+  const fetchAccountsList = async () => {
+    const response = await axios.get("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/account/accounts/");
+    setAccountsList(response.data.accountsList);
   };
   useEffect(() => {
     fetchSettingData();
+    fetchAccountsList();
   }, []);
-  // setting 페이지 데이터 전체
-  // const settingData = {
-  //   setting: {
-  // spam: {
-  //   status: true,
-  //   value: "로또",
-  // },
-  // time: {
-  //   status: true,
-  //   value: ["3", "month"],
-  // },
-  // word: {
-  //   status: false,
-  //   value: "",
-  // },
-  //   },
-  //   accountsList: ["abcd@naver.com", "1234@daum.net", "qwer@google.com", "1@naver.com", "2@naver.com"],
-  //   userInfo: {
-  //     id: "test123",
-  //     password: "pwpw",
-  //   },
-  // };
 
   const { TabPane } = Tabs;
 
   // Tab 1
   const selectAfter = (
     <Select
-      value={settingData.setting.time.unitValue}
+      value={settingData.time.unitValue}
       style={{
         width: 100,
       }}
@@ -81,19 +60,19 @@ function SettingPage() {
     if (key === "time") {
       setSettingData((current) => {
         let newValue = { ...current };
-        newValue.setting["time"].numValue = value;
+        newValue.time.numValue = value;
         return newValue;
       });
     } else if (key === "time_select") {
       setSettingData((current) => {
         let newValue = { ...current };
-        newValue.setting["time"].unitValue = value;
+        newValue.time.unitValue = value;
         return newValue;
       });
     } else {
       setSettingData((current) => {
         let newValue = { ...current };
-        newValue.setting[key].value = value;
+        newValue[key].value = value;
         return newValue;
       });
     }
@@ -103,7 +82,7 @@ function SettingPage() {
     // console.log(key, checked);
     setSettingData((current) => {
       let newValue = { ...current };
-      newValue.setting[key].status = checked;
+      newValue[key].status = checked;
       return newValue;
     });
     if (!checked) changeValue(key, "");
@@ -111,16 +90,18 @@ function SettingPage() {
 
   const saveSetting = async () => {
     if (
-      (settingData.setting.spam.status && settingData.setting.spam.value === "") ||
-      (settingData.setting.time.status && (settingData.setting.time.numValue === 0 || settingData.setting.time.unitValue === "")) ||
-      (settingData.setting.word.status && settingData.setting.word.value === "")
+      (settingData.spam.status && settingData.spam.value === "") ||
+      (settingData.time.status && (settingData.time.numValue === 0 || settingData.time.unitValue === "")) ||
+      (settingData.word.status && settingData.word.value === "")
     ) {
       message.error("비어있는 값을 입력하세요");
     } else {
-      // 설정 변경 요청 PUT
-      const response = await axios.put("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/setting/setting/", settingData.setting);
-      console.log("setting send data: ", settingData.setting);
-      console.log("response: ", response);
+      console.log("setting send data: ", settingData);
+
+      // 설정 변경 요청 POST
+      const response = await axios.post("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/myinfo/setting/", settingData);
+      // console.log("setting send data: ", settingData);
+      // console.log("response: ", response);
       if (response.data.success) {
         message.success("저장됨");
       } else {
@@ -131,15 +112,15 @@ function SettingPage() {
 
   // Tab 2
   const onDelete = async (item) => {
-    const response = await axios.delete("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/setting/accounts/", item);
-    console.log("delete send data: ", item);
-    console.log("delete response: ", response);
+    const response = await axios.post("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/account/delete/", { email: item });
+    // console.log("delete send data: ", item);
+    // console.log("delete response: ", response);
     if (response.data.success) {
       message.success("계정 삭제에 성공했습니다.");
-      // 세팅 데이터 패치
-      fetchSettingData();
+      // 계정 리스트 패치
+      fetchAccountsList();
     } else {
-      message.error("에러 발생");
+      message.error(response.data.errorMessage);
     }
   };
 
@@ -150,9 +131,9 @@ function SettingPage() {
       message.error("비어있는 값을 입력하세요.");
     } else {
       // 저장 요청 보내기
-      const response = await axios.put("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/setting/password/", password);
-      console.log("change password send data: ", password);
-      console.log("change password response: ", response);
+      const response = await axios.post("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/myinfo/changepw/", password);
+      // console.log("change password send data: ", password);
+      // console.log("change password response: ", response);
       if (response.data.success) {
         message.success("저장되었습니다.");
         // 세팅 데이터 패치
@@ -180,10 +161,10 @@ function SettingPage() {
             <div className={styles.option_container}>
               <div className={styles.option}>스팸 단어가 포함된 경우 즉시 삭제</div>
               <div>
-                <Switch checked={settingData.setting.spam.status} onChange={(event) => onChangeSwitch("spam", event)} />
-                {settingData.setting.spam.status ? (
+                <Switch checked={settingData.spam.status} onChange={(event) => onChangeSwitch("spam", event)} />
+                {settingData.spam.status ? (
                   <div>
-                    <Input onChange={(event) => changeValue("spam", event.target.value)} value={settingData.setting.spam.value} placeholder="스팸 단어 입력" className={styles.input_box} />
+                    <Input onChange={(event) => changeValue("spam", event.target.value)} value={settingData.spam.value} placeholder="스팸 단어 입력" className={styles.input_box} />
                   </div>
                 ) : null}
               </div>
@@ -191,10 +172,10 @@ function SettingPage() {
             <div className={styles.option_container}>
               <div className={styles.option}>기간 내 읽지 않은 메일 자동 삭제</div>
               <div>
-                <Switch checked={settingData.setting.time.status} onChange={(event) => onChangeSwitch("time", event)} />
-                {settingData.setting.time.status ? (
+                <Switch checked={settingData.time.status} onChange={(event) => onChangeSwitch("time", event)} />
+                {settingData.time.status ? (
                   <div className={styles.range_box}>
-                    <InputNumber addonAfter={selectAfter} onChange={(event) => changeValue("time", event)} value={settingData.setting.time.numValue} placeholder="기간" style={{ width: "18vw" }} />
+                    <InputNumber addonAfter={selectAfter} onChange={(event) => changeValue("time", event)} value={settingData.time.numValue} placeholder="기간" style={{ width: "18vw" }} />
                     <span> 동안 읽지 않은 메일 삭제</span>
                   </div>
                 ) : null}
@@ -203,10 +184,10 @@ function SettingPage() {
             <div className={styles.option_container}>
               <div className={styles.option}> 중요 단어 포함 메일 삭제 안함</div>
               <div>
-                <Switch checked={settingData.setting.word.status} onChange={(event) => onChangeSwitch("word", event)} />
-                {settingData.setting.word.status ? (
+                <Switch checked={settingData.word.status} onChange={(event) => onChangeSwitch("word", event)} />
+                {settingData.word.status ? (
                   <div>
-                    <Input onChange={(event) => changeValue("word", event.target.value)} value={settingData.setting.word.value} placeholder="중요 단어 입력" className={styles.input_box} />
+                    <Input onChange={(event) => changeValue("word", event.target.value)} value={settingData.word.value} placeholder="중요 단어 입력" className={styles.input_box} />
                   </div>
                 ) : null}
               </div>
@@ -218,7 +199,7 @@ function SettingPage() {
           <TabPane tab="메일 계정 관리" key="2">
             <div className={styles.scroll_list}>
               <List
-                dataSource={settingData.accountsList}
+                dataSource={accountsList}
                 renderItem={(item) => (
                   <List.Item className={styles.list_item}>
                     {item}
@@ -242,11 +223,11 @@ function SettingPage() {
           <TabPane tab="비밀번호 변경" key="3">
             <div className={styles.tab3}>
               <div>
-                <div className={styles.tab3_text_container}>현재 비밀번호</div>
+                <div className={styles.tab3_text_container}>현재 PW</div>
                 <Input size="large" onChange={(event) => changeInfo("currentPassword", event.target.value)} prefix={<UserOutlined />} className={styles.input_box} />
               </div>
               <div>
-                <div className={styles.tab3_text_container}>새 비밀번호</div>
+                <div className={styles.tab3_text_container}>새 PW</div>
                 <Input size="large" onChange={(event) => changeInfo("newPassword", event.target.value)} prefix={<UserOutlined />} className={styles.input_box} />
               </div>
               <Button className={styles.save_button} onClick={saveInfo}>

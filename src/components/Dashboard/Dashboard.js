@@ -24,11 +24,11 @@ function Dashboard() {
     <div className={styles.container}>
       <div className={styles.co2Cut}>
         <div style={{ color: "white", fontSize: "20px", margin: "10px" }}>절감한 탄소 배출량</div>
-        {/* <div>{co2} g</div> */}
-        <div>1500 g</div>
+        <div>{co2} g</div>
+        {/* <div>1500 g</div> */}
       </div>
-      <img className={styles.trees} src={Tree1} />
-      {/* {co2 < 500 ? <img className={styles.sprout} src={Sprout} /> : <img className={styles.trees} src={co2 < 2000 ? BabyTree : co2 < 4000 ? Tree1 : Orangetree} />} */}
+      {/* <img className={styles.trees} src={Tree1} /> */}
+      {co2 < 500 ? <img className={styles.sprout} src={Sprout} /> : <img className={styles.trees} src={co2 < 2000 ? BabyTree : co2 < 4000 ? Tree1 : Orangetree} />}
       <div className={styles.ground}>MY TREE</div>
       <div className={styles.bird_container}>
         <div className={styles.bird}></div>

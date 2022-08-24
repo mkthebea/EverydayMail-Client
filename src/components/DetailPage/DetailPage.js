@@ -14,7 +14,7 @@ function DetailPage() {
 
   const [adSender, setAdSender] = useState([]);
   const fetchAdSender = async () => {
-    const response = await axios.get(`https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/ad_senders?account=${query.account}`);
+    const response = await axios.get(`https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/account/${query.account}/`);
     // console.log("요청 url: ", `https://87e22f10-f2a1-494c-8ae5-71f15eaa1823.mock.pstmn.io/api/ad_senders?account=${query.account}`);
     // console.log("adsender response: ", response);
     setAdSender(response.data.adSender);
@@ -22,62 +22,6 @@ function DetailPage() {
   useEffect(() => {
     fetchAdSender();
   }, []);
-
-  // const adSender = [
-  //   {
-  //     name: "CAU",
-  //     email: "cau@cau.ac.kr",
-  //     mailCount: 500,
-  //     url: "https://mportal.cau.ac.kr/main.do",
-  //   },
-  //   {
-  //     name: "Naver",
-  //     email: "naver@naver.com",
-  //     mailCount: 450,
-  //     url: "https://www.naver.com/",
-  //   },
-  //   {
-  //     name: "Amazon",
-  //     email: "amazon@amazon.com",
-  //     mailCount: 400,
-  //   },
-  //   {
-  //     name: "Google",
-  //     email: "google@google.com",
-  //     mailCount: 350,
-  //   },
-  //   {
-  //     name: "sdads",
-  //     email: "sdads@google.com",
-  //     mailCount: 300,
-  //   },
-  //   {
-  //     name: "Hollys",
-  //     email: "hollys@gmail.com",
-  //     mailCount: 250,
-  //   },
-  //   {
-  //     name: "Kakao",
-  //     email: "Kakao@kakao.com",
-  //     mailCount: 200,
-  //   },
-  //   {
-  //     name: "test",
-  //     email: "test@test.com",
-  //     mailCount: 150,
-  //   },
-  //   {
-  //     name: "example",
-  //     email: "example@example.com",
-  //     mailCount: 100,
-  //   },
-  //   {
-  //     name: "fennexc",
-  //     email: "fennexc@fennexc.com",
-  //     mailCount: 50,
-  //     url: "https://fennec.co.kr/?NaPm=ct%3Dl6uiv2io%7Cci%3D0Bm0001e2JDwyQtQKf1z%7Ctr%3Dbrnd%7Chk%3D8d1334898aa995feb31d488690e40750cff72668",
-  //   },
-  // ];
 
   return (
     <div className={styles.container}>
@@ -111,11 +55,11 @@ function DetailPage() {
             <List.Item>
               <List.Item.Meta
                 avatar={<Avatar style={{ color: "red", border: "1px solid red", backgroundColor: "white", marginLeft: "50px" }}>{index + 1}</Avatar>}
-                title={item.name}
-                description={item.email}
+                title={item.senderName}
+                description={item.senderAddr}
               />
-              {item.url ? (
-                <a href={item.url} className={styles.unsubscribe_link}>
+              {item.unsubscribeLink ? (
+                <a href={item.unsubscribeLink} className={styles.unsubscribe_link}>
                   구독 해지하기
                 </a>
               ) : (

@@ -13,8 +13,8 @@ function SignupPage() {
       } else {
         message.error(response.data.errorMessage);
       }
-      console.log("signup send data: ", values);
-      console.log("signup response: ", response);
+      // console.log("signup send data: ", values);
+      // console.log("signup response: ", response);
     });
   };
 
@@ -73,12 +73,12 @@ function SignupPage() {
               autoComplete="off"
             >
               <Form.Item
-                label="Username"
-                name="username"
+                label="ID"
+                name="id"
                 rules={[
                   {
                     required: true,
-                    message: "Please input your username!",
+                    message: "Please input your ID!",
                   },
                 ]}
               >

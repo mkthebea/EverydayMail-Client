@@ -18,7 +18,12 @@ function RegisterPage() {
   };
 
   const onFinish = async (values) => {
-    const response = await axios.post("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/register/", values);
+    console.log("register send data: ", { mailAddr: values.email.id + values.email.host, mailPw: values.user.password });
+
+    const response = await axios.post("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/account/register/", {
+      mailAddr: values.email.id + values.email.host,
+      mailPw: values.user.password,
+    });
     // console.log("register send data: ", values);
     // console.log("register response: ", response);
     setStatus(response.data.status);
