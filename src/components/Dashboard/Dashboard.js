@@ -23,7 +23,7 @@ function Dashboard() {
   return (
     <div className={styles.container}>
       <div className={styles.co2Cut}>
-        <div style={{ color: "white", fontSize: "20px" }}>절감한 탄소 배출량</div>
+        <div style={{ color: "white", fontSize: "20px", margin: "10px" }}>절감한 탄소 배출량</div>
         {/* <div>{co2} g</div> */}
         <div>1500 g</div>
       </div>
