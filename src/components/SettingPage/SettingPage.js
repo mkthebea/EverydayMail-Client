@@ -155,7 +155,7 @@ function SettingPage() {
   return (
     <div className={styles.container}>
       <div className={styles.setting_container}>
-        <div className={styles.title}>Setting</div>
+        <div className={styles.title}>사용자 설정</div>
         <Tabs defaultActiveKey="1" className={styles.tabs}>
           <TabPane tab="실시간 관리 설정" key="1" className={styles.tab}>
             <div className={styles.option_container}>

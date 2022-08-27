@@ -16,8 +16,10 @@ import DetailPage from "./components/DetailPage/DetailPage";
 import SignupPage from "./components/SignupPage/SignupPage";
 
 import Logo from "./logo.png";
+import Logo2 from "./Logo2.png";
+import leaves from "./leaves.jpg";
 
-const { Content, Sider } = Layout;
+const { Content, Sider, Footer } = Layout;
 // const SubMenu = Menu.SubMenu;
 const { SubMenu } = Menu;
 
@@ -57,8 +59,8 @@ const App = () => {
           <div className="logo" style={{ marginTop: "10vh", height: "20%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
             <Link to="/" style={{ color: "green", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", fontSize: "15px", fontWeight: "bolder" }}>
               {/* <MailFilled /> */}
-              <img src={Logo} style={{ width: "80%" }} />
-              {collapsed ? <div></div> : <div>EveryDay-Mail</div>}
+              <img src={Logo2} style={{ width: "100%" }} />
+              {/* {collapsed ? <div></div> : <div>EveryDay-Mail</div>} */}
             </Link>
           </div>
           <Menu theme="light" mode="inline" inlineCollapsed={collapsed} style={{ marginTop: "10vh", zIndex: "100" }}>
@@ -95,13 +97,7 @@ const App = () => {
           </Menu>
         </Sider>
         <Layout className="site-layout">
-          <Content
-            className="site-layout-background"
-            style={{
-              minHeight: 280,
-              backgroundColor: "rgb(144, 238, 144, 0.3)",
-            }}
-          >
+          <Content>
             <div style={{ fontSize: "20px", padding: "20px 0px 0px 20px", position: "absolute" }}>
               {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
                 className: "trigger",
