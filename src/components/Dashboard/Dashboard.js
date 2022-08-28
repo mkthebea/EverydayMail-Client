@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./Dashboard.module.css";
 
-import Sprout from "./sprout.png";
-import BabyTree from "./baby tree.png";
-import Tree1 from "./tree1.png";
-import Orangetree from "./orangetree.png";
+import Sprout from "./sprout1.png";
+import Tree1 from "./t1.png";
+import Tree2 from "./t2.png";
+import Tree3 from "./tree1.png";
 
 function Dashboard() {
   const [deletedMails, setDeletedMails] = useState(0);
@@ -18,7 +18,10 @@ function Dashboard() {
     fetchDeletedMails();
   }, []);
 
-  const co2 = deletedMails * 4;
+  // const co2 = deletedMails * 4;
+  const co2 = 500;
+  const phase = co2 < 500 ? 0 : co2 < 2000 ? 1 : co2 < 4000 ? 2 : 3;
+  // const phase = 3;
 
   return (
     <div className={styles.container}>
@@ -27,9 +30,12 @@ function Dashboard() {
         <div>{co2} g</div>
         {/* <div>1500 g</div> */}
       </div>
-      {/* <img className={styles.trees} src={Tree1} /> */}
-      {co2 < 500 ? <img className={styles.sprout} src={Sprout} /> : <img className={styles.trees} src={co2 < 2000 ? BabyTree : co2 < 4000 ? Tree1 : Orangetree} />}
-      <div className={styles.ground}>MY TREE</div>
+      {/* <img className={styles.trees} src={Tree3} /> */}
+      {/* <img className={styles.sprout} src={Sprout} /> */}
+      {phase === 0 ? <img className={styles.sprout} src={Sprout} /> : <img className={styles.trees} src={phase === 1 ? Tree1 : phase === 2 ? Tree2 : Tree3} />}
+
+      {/* {co2 < 500 ? <img className={styles.sprout} src={Sprout} /> : <img className={styles.trees} src={co2 < 2000 ? BabyTree : co2 < 4000 ? Tree1 : Orangetree} />} */}
+      <div className={styles.ground}>My tree</div>
       <div className={styles.bird_container}>
         <div className={styles.bird}></div>
       </div>

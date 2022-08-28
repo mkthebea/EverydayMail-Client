@@ -17,7 +17,6 @@ import SignupPage from "./components/SignupPage/SignupPage";
 
 import Logo from "./logo.png";
 import Logo2 from "./Logo2.png";
-import leaves from "./leaves.jpg";
 
 const { Content, Sider, Footer } = Layout;
 // const SubMenu = Menu.SubMenu;
