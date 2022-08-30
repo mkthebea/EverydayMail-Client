@@ -59,6 +59,48 @@
     /* box-shadow: rgba(200, 200, 200, 0.5) 0px 4px 8px; */
     box-shadow: gray 0px 4px 8px;
 }
+.desc_box {
+    font-family: 'Cafe24SsurroundAir';
+    position: absolute;
+    top: 20vh;
+    left: 60vw;
+    /* background-color: rgb(116,183,72,0.3); */
+    background: radial-gradient( rgb(169,218,235), rgb(169,218,235,0.8),rgb(169,218,235,0.4),rgb(0,0,0,0.8));
+    height: 20vh;
+    width: 20vh;
+    font-size: 20px;
+    color: rgb(73,133,212);
+    /* color: white; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20vh;
+    z-index: 10;
+    box-shadow: gray 0px 4px 8px;
+    font-weight: bolder;
+    /* animation: bubble 0.5s infinite alternate;   */
+}
+.desc_box_sprout {
+    font-family: 'Cafe24SsurroundAir';
+    position: absolute;
+    top: 50vh;
+    left: 55vw;
+    background: radial-gradient( rgb(169,218,235), rgb(169,218,235,0.8),rgb(169,218,235,0.4),rgb(0,0,0,0.8));
+    height: 20vh;
+    width: 20vh;
+    font-size: 20px;
+    color: rgb(73,133,212);
+    /* color: white; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20vh;
+    z-index: 10;
+    box-shadow: gray 0px 4px 8px;
+    font-weight: bolder;
+}
 
 /* 새싹 */
 .sprout {
@@ -68,6 +110,11 @@
     z-index: 0;
     /* background-color: rgb(255,255,255,0.5);
     border-radius: 50px; */
+    transition: all 0.2s linear;
+}
+.sprout:hover {
+    transform: scale(1.05);
+    animation: blink-effect 1s linear infinite;
 }
 
 @keyframes vibration {
@@ -79,6 +126,12 @@
     }
   }
 
+
+@keyframes blink-effect {
+    50% {
+      opacity: 0.8;
+    }
+}
 /* 나무 */
 .trees {
     height: 80vh;
@@ -89,6 +142,11 @@
     /* border-bottom: 30px dashed white; */
     /* background-color: rgb(255,255,255,0.5); */
     /* border-radius: 50px; */
+    transition: all 0.2s linear;
+}
+.trees:hover {
+    transform: scale(1.05);
+    animation: blink-effect 1s linear infinite;
 }
 /* 이름표 */
 .ground {
