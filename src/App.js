@@ -25,6 +25,8 @@ const { SubMenu } = Menu;
 const App = () => {
   const [collapsed, setCollapsed] = useState(true);
 
+  axios.defaults.withCredentials = true;
+
   // 계정 리스트 get
   const [accountsList, setAccountsList] = useState([]);
   const fetchAccountsList = async () => {
@@ -44,7 +46,7 @@ const App = () => {
   //   setLogin(response.data.isLogin);
   //   console.log("로그인 상태: ", login);
   // };
-  const [login, setLogin] = useState(true);
+  const [login, setLogin] = useState(false);
   const fetchLogin = () => {
     setLogin(!login);
     console.log("로그인 상태: ", login);
@@ -85,11 +87,13 @@ const App = () => {
               <Link to="/setting">Setting</Link>
             </Menu.Item>
             {login ? (
-              <Menu.Item key="login" icon={<LogoutOutlined />} onClick={fetchLogin}>
+              // <Menu.Item key="login" icon={<LogoutOutlined />} onClick={fetchLogin}>
+              <Menu.Item key="login" icon={<LogoutOutlined />}>
                 Logout
               </Menu.Item>
             ) : (
-              <Menu.Item key="login" icon={<LoginOutlined />} onClick={fetchLogin}>
+              // <Menu.Item key="login" icon={<LoginOutlined />} onClick={fetchLogin}>
+              <Menu.Item key="login" icon={<LoginOutlined />}>
                 <Link to="/login">Login</Link>
               </Menu.Item>
             )}

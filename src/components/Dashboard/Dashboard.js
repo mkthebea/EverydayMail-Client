@@ -10,8 +10,9 @@ import Tree3 from "./tree1.png";
 function Dashboard() {
   const [deletedMails, setDeletedMails] = useState(0);
   const fetchDeletedMails = async () => {
-    const response = await axios.get("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/dashboard/");
-    // console.log("dashboard response: ", response);
+    // const response = await axios.get("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/dashboard/");
+    const response = await axios.get("http://3.34.232.130:8080/everydayMail/dashboard/");
+    console.log("dashboard response: ", response);
     setDeletedMails(response.data.deletedMails);
   };
   useEffect(() => {
@@ -19,7 +20,7 @@ function Dashboard() {
   }, []);
 
   // const co2 = deletedMails * 4;
-  const co2 = 500;
+  const co2 = 50000;
   const phase = co2 < 500 ? 0 : co2 < 2000 ? 1 : co2 < 4000 ? 2 : 3;
   // const phase = 3;
 

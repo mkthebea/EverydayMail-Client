@@ -23,17 +23,21 @@ function LoginPage() {
   };
 
   const onFinish = async (values) => {
-    const response = await axios.post("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/login/", values);
+    // const response = await axios.post("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/login/", values);
+    const response = await axios.post("http://3.34.232.130:8080/everydayMail/login/", {
+      id: "idchaeyeon",
+      password: "pwchaeyeon2",
+    });
 
     // 로그인 성공시 메인 페이지로 이동
     console.log("login send data:", values);
     console.log("login response: ", response);
     if (response.data.success) {
       message.success("로그인 성공");
-      setTimeout(() => {
-        window.location.replace("/");
-      }, 1000);
-      fetchLogin();
+      // setTimeout(() => {
+      //   window.location.replace("/");
+      // }, 1000);
+      // fetchLogin();
     } else {
       message.error("로그인 실패");
     }
