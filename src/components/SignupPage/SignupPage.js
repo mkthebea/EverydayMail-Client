@@ -7,7 +7,7 @@ function SignupPage() {
   const [signUp, setSignUp] = useState(false);
 
   const fetchSignUp = async (values) => {
-    await axios.post("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/signup/", values).then((response) => {
+    await axios.post("/signup/", values).then((response) => {
       if (response.data.success) {
         setSignUp(response.data.success);
       } else {

@@ -80,6 +80,7 @@
     box-shadow: gray 0px 4px 8px;
     font-weight: bolder;
     /* animation: bubble 0.5s infinite alternate;   */
+    pointer-events: none;
 }
 .desc_box_sprout {
     font-family: 'Cafe24SsurroundAir';
@@ -100,6 +101,7 @@
     z-index: 10;
     box-shadow: gray 0px 4px 8px;
     font-weight: bolder;
+    pointer-events: none;
 }
 
 /* 새싹 */

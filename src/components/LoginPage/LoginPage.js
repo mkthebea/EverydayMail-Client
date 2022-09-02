@@ -5,6 +5,8 @@ import { Button, Checkbox, Form, Input, message } from "antd";
 import axios from "axios";
 import styles from "./LoginPage.module.css";
 
+import cookies from "react-cookies";
+
 // 비밀번호 두 번 입력 => 같으면 성공
 
 function LoginPage() {
@@ -24,7 +26,7 @@ function LoginPage() {
 
   const onFinish = async (values) => {
     // const response = await axios.post("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/login/", values);
-    const response = await axios.post("http://3.34.232.130:8080/everydayMail/login/", {
+    const response = await axios.post("/login/", {
       id: "idchaeyeon",
       password: "pwchaeyeon2",
     });
@@ -34,6 +36,15 @@ function LoginPage() {
     console.log("login response: ", response);
     if (response.data.success) {
       message.success("로그인 성공");
+      const expires = new Date();
+
+      // 년도 설정, 현재의 년도를 가져와 +10을 해서 2032가 됨
+      // expires.setFullYear(expires.getFullYear() + 10);
+      expires.setHours(expires.getHours() + 3); //3시간 후
+      cookies.save("JSESSIONID", response.data.JSESSIONID, {
+        path: "/", // 쿠키 값을 저장하는 서버 경로
+        expires, // 유효 시간
+      });
       // setTimeout(() => {
       //   window.location.replace("/");
       // }, 1000);

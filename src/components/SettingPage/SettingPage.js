@@ -24,13 +24,13 @@ function SettingPage() {
     },
   });
   const fetchSettingData = async () => {
-    const response = await axios.get("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/myinfo/setting/");
+    const response = await axios.get("/myinfo/setting/");
     // console.log("setting response: ", response);
     setSettingData(response.data);
   };
   const [accountsList, setAccountsList] = useState([]);
   const fetchAccountsList = async () => {
-    const response = await axios.get("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/account/accounts/");
+    const response = await axios.get("/account/accounts/");
     setAccountsList(response.data.accountsList);
   };
   useEffect(() => {
@@ -99,7 +99,7 @@ function SettingPage() {
       console.log("setting send data: ", settingData);
 
       // 설정 변경 요청 POST
-      const response = await axios.post("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/myinfo/setting/", settingData);
+      const response = await axios.post("/myinfo/setting/", settingData);
       // console.log("setting send data: ", settingData);
       // console.log("response: ", response);
       if (response.data.success) {
@@ -112,7 +112,7 @@ function SettingPage() {
 
   // Tab 2
   const onDelete = async (item) => {
-    const response = await axios.post("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/account/delete/", { email: item });
+    const response = await axios.post("/account/delete/", { email: item });
     // console.log("delete send data: ", item);
     // console.log("delete response: ", response);
     if (response.data.success) {
@@ -131,7 +131,7 @@ function SettingPage() {
       message.error("비어있는 값을 입력하세요.");
     } else {
       // 저장 요청 보내기
-      const response = await axios.post("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/myinfo/changepw/", password);
+      const response = await axios.post("/api/myinfo/changepw/", password);
       // console.log("change password send data: ", password);
       // console.log("change password response: ", response);
       if (response.data.success) {
