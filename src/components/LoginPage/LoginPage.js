@@ -10,14 +10,6 @@ import cookies from "react-cookies";
 // 비밀번호 두 번 입력 => 같으면 성공
 
 function LoginPage() {
-  // 로그인 상태 관리
-  // const [login, setLogin] = useState(false);
-  // const fetchLogin = async () => {
-  //   const response = await axios.get("https://66d970b7-c9c2-4dfb-be10-e28048802b89.mock.pstmn.io/api/login");
-  //   setLogin(response.data.isLogin);
-  //   console.log("로그인 상태: ", login);
-  // };
-
   const [login, setLogin] = useState(false);
   const fetchLogin = () => {
     setLogin(!login);

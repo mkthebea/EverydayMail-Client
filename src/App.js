@@ -14,6 +14,8 @@ import SettingPage from "./components/SettingPage/SettingPage";
 import Accounts from "./components/Accounts/Accounts";
 import DetailPage from "./components/DetailPage/DetailPage";
 import SignupPage from "./components/SignupPage/SignupPage";
+import NotAuthorized from "./components/NotAuthorized/NotAuthorized";
+import NotFound from "./components/NotFound/NotFound";
 
 // import CookiesSave from "./components/CookiesSave";
 
@@ -31,13 +33,24 @@ const App = () => {
   // axios.defaults.baseURL = "http://3.34.232.130:8080/everydayMail";
   // axios.defaults.baseURL = "http://3.34.232.130:8080/api";
 
+  // 로그인 상태 관리
+  const [login, setLogin] = useState(false);
+  // const fetchLogin = async () => {
+  //   const response = await axios.get("https://66d970b7-c9c2-4dfb-be10-e28048802b89.mock.pstmn.io/api/login");
+  //   setLogin(response.data.isLogin);
+  //   console.log("로그인 상태: ", login);
+  // };
+
   // 계정 리스트 get
   const [accountsList, setAccountsList] = useState([]);
   const fetchAccountsList = async () => {
     const response = await axios.get("/api/account/accounts/");
     console.log("accountsList response: ", response);
     // setAccountsList(response.data.accountsList);
-    if (response.data.success) setAccountsList(response.data.accountsList);
+    if (response.data.success) {
+      setAccountsList(response.data.accountsList);
+      setLogin(true); // accountsList 못가져오면 로그인 안된걸로 간주
+    }
     //test
     // setAccountsList(["1@naver.com", "2@daum.net"]);
   };
@@ -53,11 +66,11 @@ const App = () => {
   //   setLogin(response.data.isLogin);
   //   console.log("로그인 상태: ", login);
   // };
-  const [login, setLogin] = useState(false);
-  const fetchLogin = () => {
-    setLogin(!login);
-    console.log("로그인 상태: ", login);
-  };
+  // const [login, setLogin] = useState(false);
+  // const fetchLogin = () => {
+  //   setLogin(!login);
+  //   console.log("로그인 상태: ", login);
+  // };
 
   return (
     <>
@@ -123,10 +136,11 @@ const App = () => {
                 <Route path="/" element={<DashBoard />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/signup" element={<SignupPage />} />
-                <Route path="/register" element={<RegisterPage />} />
-                <Route path="/scanning" element={<ScanningPage />} />
-                <Route path="/setting" element={<SettingPage />} />
-                <Route path="/detail" element={<DetailPage />} />
+                <Route path="/register" element={login ? <RegisterPage /> : <NotAuthorized />} />
+                <Route path="/scanning" element={login ? <ScanningPage /> : <NotAuthorized />} />
+                <Route path="/setting" element={login ? <SettingPage /> : <NotAuthorized />} />
+                <Route path="/detail" element={login ? <DetailPage /> : <NotAuthorized />} />
+                <Route path="/*" element={<NotFound />} />
               </Routes>
             </Content>
           </Layout>
