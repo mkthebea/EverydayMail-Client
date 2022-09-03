@@ -34,11 +34,12 @@ const App = () => {
   // 계정 리스트 get
   const [accountsList, setAccountsList] = useState([]);
   const fetchAccountsList = async () => {
-    // const response = await axios.get("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/account/accounts/");
-    // // console.log("accountsList response: ", response);
+    const response = await axios.get("/api/account/accounts/");
+    console.log("accountsList response: ", response);
     // setAccountsList(response.data.accountsList);
+    if (response.data.success) setAccountsList(response.data.accountsList);
     //test
-    setAccountsList(["1@naver.com", "2@daum.net"]);
+    // setAccountsList(["1@naver.com", "2@daum.net"]);
   };
   useEffect(() => {
     fetchAccountsList();
@@ -74,14 +75,18 @@ const App = () => {
             <Menu theme="light" mode="inline" inlineCollapsed={collapsed} style={{ marginTop: "10vh", zIndex: "100" }}>
               {/* <Menu.Item key="accounts" icon={<MailOutlined />}> */}
               <SubMenu title="Accounts" icon={<MailOutlined />}>
-                {accountsList.map((account) => {
-                  return (
-                    <Menu.Item key={account}>
-                      <LaptopOutlined />
-                      <Link to={`/detail?account=${account}`}> {account}</Link>{" "}
-                    </Menu.Item>
-                  );
-                })}
+                {accountsList !== [] ? (
+                  accountsList.map((account) => {
+                    return (
+                      <Menu.Item key={account}>
+                        <LaptopOutlined />
+                        <Link to={`/detail?account=${account}`}> {account}</Link>{" "}
+                      </Menu.Item>
+                    );
+                  })
+                ) : (
+                  <></>
+                )}
               </SubMenu>
               {/* </Menu.Item> */}
               <Menu.Item key="register" icon={<PlusCircleOutlined />}>

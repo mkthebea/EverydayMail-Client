@@ -26,31 +26,33 @@ function LoginPage() {
 
   const onFinish = async (values) => {
     // const response = await axios.post("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/login/", values);
-    const response = await axios.post("/login/", {
-      id: "idchaeyeon",
-      password: "pwchaeyeon2",
-    });
-
-    // 로그인 성공시 메인 페이지로 이동
+    // const response = await axios.post("/api/login/", {
+    //   id: "idchaeyeon",
+    //   password: "pwchaeyeon2",
+    // });
+    const response = await axios.post("/api/login/", values);
     console.log("login send data:", values);
     console.log("login response: ", response);
+
+    // 로그인 성공시 메인 페이지로 이동
     if (response.data.success) {
       message.success("로그인 성공");
-      const expires = new Date();
 
+      setTimeout(() => {
+        window.location.replace("/");
+      }, 1000);
+      fetchLogin();
+
+      // const expires = new Date();
       // 년도 설정, 현재의 년도를 가져와 +10을 해서 2032가 됨
       // expires.setFullYear(expires.getFullYear() + 10);
-      expires.setHours(expires.getHours() + 3); //3시간 후
-      cookies.save("JSESSIONID", response.data.JSESSIONID, {
-        path: "/", // 쿠키 값을 저장하는 서버 경로
-        expires, // 유효 시간
-      });
-      // setTimeout(() => {
-      //   window.location.replace("/");
-      // }, 1000);
-      // fetchLogin();
+      // expires.setHours(expires.getHours() + 3); //3시간 후
+      // cookies.save("JSESSIONID", response.data.JSESSIONID, {
+      //   path: "/", // 쿠키 값을 저장하는 서버 경로
+      //   expires, // 유효 시간
+      // });
     } else {
-      message.error("로그인 실패");
+      message.error(response.data.errorMessage);
     }
   };
 

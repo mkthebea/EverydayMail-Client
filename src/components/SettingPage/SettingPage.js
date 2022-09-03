@@ -24,14 +24,17 @@ function SettingPage() {
     },
   });
   const fetchSettingData = async () => {
-    const response = await axios.get("/myinfo/setting/");
-    // console.log("setting response: ", response);
-    setSettingData(response.data);
+    const response = await axios.get("/api/myinfo/setting/");
+    // setSettingData(response.data);
+    if (response.data.success) setSettingData(response.data);
+    console.log("setting response: ", response);
   };
   const [accountsList, setAccountsList] = useState([]);
   const fetchAccountsList = async () => {
-    const response = await axios.get("/account/accounts/");
-    setAccountsList(response.data.accountsList);
+    const response = await axios.get("/api/account/accounts/");
+    // setAccountsList(response.data.accountsList);
+    if (response.data.success) setAccountsList(response.data.accountsList);
+    console.log("accountList response: ", response);
   };
   useEffect(() => {
     fetchSettingData();
@@ -43,6 +46,7 @@ function SettingPage() {
   // Tab 1
   const selectAfter = (
     <Select
+      // value={settingData.time.unitValue ? settingData.time.unitValue : "일"}
       value={settingData.time.unitValue}
       style={{
         width: 100,
@@ -99,7 +103,7 @@ function SettingPage() {
       console.log("setting send data: ", settingData);
 
       // 설정 변경 요청 POST
-      const response = await axios.post("/myinfo/setting/", settingData);
+      const response = await axios.post("/api/myinfo/setting/", settingData);
       // console.log("setting send data: ", settingData);
       // console.log("response: ", response);
       if (response.data.success) {
@@ -112,7 +116,7 @@ function SettingPage() {
 
   // Tab 2
   const onDelete = async (item) => {
-    const response = await axios.post("/account/delete/", { email: item });
+    const response = await axios.post("/api/account/delete/", { email: item });
     // console.log("delete send data: ", item);
     // console.log("delete response: ", response);
     if (response.data.success) {
@@ -132,12 +136,12 @@ function SettingPage() {
     } else {
       // 저장 요청 보내기
       const response = await axios.post("/api/myinfo/changepw/", password);
-      // console.log("change password send data: ", password);
-      // console.log("change password response: ", response);
+      console.log("change password send data: ", password);
+      console.log("change password response: ", response);
       if (response.data.success) {
         message.success("저장되었습니다.");
         // 세팅 데이터 패치
-        fetchSettingData();
+        // fetchSettingData();
       } else {
         message.error(response.data.errorMessage);
       }

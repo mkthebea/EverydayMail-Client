@@ -14,9 +14,9 @@ function DetailPage() {
 
   const [adSender, setAdSender] = useState([]);
   const fetchAdSender = async () => {
-    const response = await axios.get(`/account/${query.account}/`);
+    const response = await axios.get(`/api/account/${query.account}/`);
     // console.log("요청 url: ", `https://87e22f10-f2a1-494c-8ae5-71f15eaa1823.mock.pstmn.io/api/ad_senders?account=${query.account}`);
-    // console.log("adsender response: ", response);
+    console.log("adsender response: ", response);
     setAdSender(response.data.adSender);
   };
   useEffect(() => {

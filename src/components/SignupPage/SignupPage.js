@@ -7,7 +7,7 @@ function SignupPage() {
   const [signUp, setSignUp] = useState(false);
 
   const fetchSignUp = async (values) => {
-    await axios.post("/signup/", values).then((response) => {
+    await axios.post("/api/signup/", values).then((response) => {
       if (response.data.success) {
         setSignUp(response.data.success);
       } else {
@@ -19,7 +19,6 @@ function SignupPage() {
   };
 
   const onFinish = async (values) => {
-    // console.log("values: ", values);
     fetchSignUp(values);
   };
 

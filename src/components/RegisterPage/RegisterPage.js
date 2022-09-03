@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Component } from "react";
 import styles from "./RegisterPage.module.css";
-import { Button, Form, Input, Select, Result } from "antd";
+import { Button, Form, Input, Select, Result, message } from "antd";
 import { CloseCircleOutlined } from "@ant-design/icons";
 import axios from "axios";
 
@@ -18,16 +18,18 @@ function RegisterPage() {
   };
 
   const onFinish = async (values) => {
-    console.log("register send data: ", { mailAddr: values.email.id + values.email.host, mailPw: values.user.password });
-
-    const response = await axios.post("/account/register/", {
+    const response = await axios.post("/api/account/register/", {
       mailAddr: values.email.id + values.email.host,
       mailPw: values.user.password,
     });
-    // console.log("register send data: ", values);
-    // console.log("register response: ", response);
-    setStatus(response.data.status);
-    setRegisteredEmail(values.email.id + values.email.host);
+    console.log("register send data: ", { mailAddr: values.email.id + values.email.host, mailPw: values.user.password });
+    console.log("register response: ", response);
+    if (response.data.success) {
+      setStatus(response.data.status);
+      setRegisteredEmail(values.email.id + values.email.host);
+    } else {
+      message.error(response.data.errorMessage);
+    }
   };
 
   return (
