@@ -10,23 +10,23 @@ function SettingPage() {
   // 세팅 데이터 GET
   const [settingData, setSettingData] = useState({
     spam: {
-      status: 1,
+      status: 0,
       value: "",
     },
     time: {
-      status: 1,
+      status: 0,
       numValue: 0,
       unitValue: "",
     },
     word: {
-      status: 1,
+      status: 0,
       value: "",
     },
   });
   const fetchSettingData = async () => {
     const response = await axios.get("/api/myinfo/setting/");
     // setSettingData(response.data);
-    if (response.data.success) setSettingData(response.data);
+    if (response.data.success) setSettingData(response.data.setting);
     console.log("setting response: ", response);
   };
   const [accountsList, setAccountsList] = useState([]);
@@ -86,7 +86,7 @@ function SettingPage() {
     // console.log(key, checked);
     setSettingData((current) => {
       let newValue = { ...current };
-      newValue[key].status = checked;
+      newValue[key].status = checked ? 1 : 0;
       return newValue;
     });
     if (!checked) changeValue(key, "");
@@ -139,12 +139,24 @@ function SettingPage() {
       console.log("change password send data: ", password);
       console.log("change password response: ", response);
       if (response.data.success) {
-        message.success("저장되었습니다.");
+        message.success("비밀번호 변경 완료! 다시 로그인 하세요.");
+        logout();
         // 세팅 데이터 패치
         // fetchSettingData();
       } else {
         message.error(response.data.errorMessage);
       }
+    }
+  };
+
+  const logout = async () => {
+    const response = await axios.post("/api/logout/");
+    if (response.data.success) {
+      setTimeout(() => {
+        window.location.replace("/");
+      }, 1000);
+    } else {
+      message.error(response.data.errorMessage);
     }
   };
 

@@ -5,7 +5,7 @@ import axios from "axios";
 import styles from "./App.module.css";
 import "antd/dist/antd.min.css";
 import { ScanOutlined, LaptopOutlined, LoginOutlined, LogoutOutlined, SettingOutlined, PlusCircleOutlined, MenuFoldOutlined, MenuUnfoldOutlined, MailOutlined, MailFilled } from "@ant-design/icons";
-import { Layout, Menu } from "antd";
+import { Layout, Menu, message } from "antd";
 import DashBoard from "./components/Dashboard/Dashboard";
 import RegisterPage from "./components/RegisterPage/RegisterPage";
 import LoginPage from "./components/LoginPage/LoginPage";
@@ -35,6 +35,18 @@ const App = () => {
 
   // 로그인 상태 관리
   const [login, setLogin] = useState(false);
+
+  const logout = async () => {
+    const response = await axios.post("/api/logout/");
+    if (response.data.success) {
+      message.success("로그아웃 완료");
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    } else {
+      message.error(response.data.errorMessage);
+    }
+  };
   // const fetchLogin = async () => {
   //   const response = await axios.get("https://66d970b7-c9c2-4dfb-be10-e28048802b89.mock.pstmn.io/api/login");
   //   setLogin(response.data.isLogin);
@@ -112,8 +124,8 @@ const App = () => {
                 <Link to="/setting">Setting</Link>
               </Menu.Item>
               {login ? (
-                // <Menu.Item key="login" icon={<LogoutOutlined />} onClick={fetchLogin}>
-                <Menu.Item key="login" icon={<LogoutOutlined />}>
+                <Menu.Item key="login" icon={<LogoutOutlined />} onClick={logout}>
+                  {/* <Menu.Item key="login" icon={<LogoutOutlined />}> */}
                   Logout
                 </Menu.Item>
               ) : (

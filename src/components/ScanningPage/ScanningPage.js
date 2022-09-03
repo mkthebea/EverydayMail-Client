@@ -19,8 +19,8 @@ function ScanningPage() {
 
   const scanning = async () => {
     const response = await axios.post("/api/account/scanning/", { scanningMode: mode, value: value });
-    // console.log("scanning send data: ", { scanningMode: mode, value: value });
-    // console.log("scanning response: ", response);
+    console.log("scanning send data: ", { scanningMode: mode, value: value });
+    console.log("scanning response: ", response);
     if (response.data.success) {
       setCurrentProgress(2);
       message.success("스캔 완료!");
