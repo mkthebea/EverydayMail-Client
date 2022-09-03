@@ -9,24 +9,27 @@ import Tree3 from "./tree1.png";
 
 import cookies from "react-cookies";
 
+// axios.defaults.withCredentials = true;
+
 function Dashboard() {
   const [deletedMails, setDeletedMails] = useState(0);
   const fetchDeletedMails = async () => {
     // const response = await axios.get("https://fe0a1beb-6964-461b-a48c-fa425f9698ea.mock.pstmn.io/api/dashboard/");
-    const response = await axios.get("/dashboard/", { headers: { JSESSIONID: cookies.load("JSESSIONID") } });
+    // const response = await axios.get("/dashboard/", { headers: { JSESSIONID: cookies.load("JSESSIONID") } });
+    const response = await axios.get("/api/dashboard/");
+
     console.log("dashboard response: ", response);
     setDeletedMails(response.data.deletedMails);
   };
   useEffect(() => {
     fetchDeletedMails();
-    console.log("토큰: ", cookies.load("token_test"));
   }, []);
 
   const [descBox, setDescBox] = useState(false);
   const [descBoxSprout, setDescBoxSprout] = useState(false);
 
   // const co2 = deletedMails * 4;
-  const co2 = 5564;
+  const co2 = 564;
   const phase = co2 < 500 ? 0 : co2 < 2000 ? 1 : co2 < 4000 ? 2 : 3;
   // const phase = 3;
 

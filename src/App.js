@@ -28,7 +28,8 @@ const App = () => {
   const [collapsed, setCollapsed] = useState(true);
 
   axios.defaults.withCredentials = true;
-  axios.defaults.baseURL = "http://3.34.232.130:8080/everydayMail";
+  // axios.defaults.baseURL = "http://3.34.232.130:8080/everydayMail";
+  // axios.defaults.baseURL = "http://3.34.232.130:8080/api";
 
   // 계정 리스트 get
   const [accountsList, setAccountsList] = useState([]);
