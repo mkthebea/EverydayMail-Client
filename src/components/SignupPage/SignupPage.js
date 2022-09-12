@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Button, Checkbox, Form, Input, message, Result } from "antd";
+import React, { useState } from "react";
+import { Button, Form, Input, message, Result } from "antd";
 import styles from "./SignupPage.module.css";
 import axios from "axios";
 
@@ -22,9 +22,6 @@ function SignupPage() {
     fetchSignUp(values);
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
   return (
     <div className={styles.container}>
       <div className={styles.form_container}>
@@ -68,7 +65,6 @@ function SignupPage() {
                 remember: true,
               }}
               onFinish={onFinish}
-              onFinishFailed={onFinishFailed}
               autoComplete="off"
             >
               <Form.Item

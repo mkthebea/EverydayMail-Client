@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./Dashboard.module.css";
-
 import Sprout from "./sprout1.png";
 import Tree1 from "./t1.png";
 import Tree2 from "./t2.png";
@@ -11,9 +10,8 @@ function Dashboard() {
   const [deletedMails, setDeletedMails] = useState(0);
   const fetchDeletedMails = async () => {
     const response = await axios.get("/api/dashboard/");
-    // setDeletedMails(response.data.deletedMails);
     if (response.data.success) setDeletedMails(response.data.deletedMails);
-    console.log("dashboard response: ", response);
+    // console.log("dashboard response: ", response);
   };
   useEffect(() => {
     fetchDeletedMails();
@@ -23,19 +21,14 @@ function Dashboard() {
   const [descBoxSprout, setDescBoxSprout] = useState(false);
 
   const co2 = deletedMails * 4;
-  // const co2 = 564;
   const phase = co2 < 500 ? 0 : co2 < 2000 ? 1 : co2 < 4000 ? 2 : 3;
-  // const phase = 3;
 
   return (
     <div className={styles.container}>
       <div className={styles.co2Cut}>
         <div style={{ color: "white", fontSize: "20px", margin: "10px" }}>절감한 탄소 배출량</div>
         <div>{co2} g</div>
-        {/* <div>1500 g</div> */}
       </div>
-      {/* <img className={styles.trees} src={Tree3} /> */}
-      {/* <img className={styles.sprout} src={Sprout} /> */}
 
       {phase === 0 ? (
         <img
@@ -76,7 +69,6 @@ function Dashboard() {
       ) : (
         <></>
       )}
-      {/* {co2 < 500 ? <img className={styles.sprout} src={Sprout} /> : <img className={styles.trees} src={co2 < 2000 ? BabyTree : co2 < 4000 ? Tree1 : Orangetree} />} */}
       <div className={styles.ground}>My tree</div>
       <div className={styles.bird_container}>
         <div className={styles.bird}></div>

@@ -17,21 +17,16 @@ import SignupPage from "./components/SignupPage/SignupPage";
 import NotAuthorized from "./components/NotAuthorized/NotAuthorized";
 import NotFound from "./components/NotFound/NotFound";
 
-// import CookiesSave from "./components/CookiesSave";
-
 import Logo from "./logo.png";
 import Logo2 from "./Logo2.png";
 
 const { Content, Sider, Footer } = Layout;
-// const SubMenu = Menu.SubMenu;
 const { SubMenu } = Menu;
 
 const App = () => {
   const [collapsed, setCollapsed] = useState(true);
 
   axios.defaults.withCredentials = true;
-  // axios.defaults.baseURL = "http://3.34.232.130:8080/everydayMail";
-  // axios.defaults.baseURL = "http://3.34.232.130:8080/api";
 
   // 로그인 상태 관리
   const [login, setLogin] = useState(false);
@@ -41,64 +36,38 @@ const App = () => {
     if (response.data.success) {
       message.success("로그아웃 완료");
       setTimeout(() => {
-        window.location.reload();
+        window.location.replace("/");
       }, 1000);
     } else {
       message.error(response.data.errorMessage);
     }
   };
-  // const fetchLogin = async () => {
-  //   const response = await axios.get("https://66d970b7-c9c2-4dfb-be10-e28048802b89.mock.pstmn.io/api/login");
-  //   setLogin(response.data.isLogin);
-  //   console.log("로그인 상태: ", login);
-  // };
 
   // 계정 리스트 get
   const [accountsList, setAccountsList] = useState([]);
   const fetchAccountsList = async () => {
     const response = await axios.get("/api/account/accounts/");
-    console.log("accountsList response: ", response);
-    // setAccountsList(response.data.accountsList);
+    // console.log("accountsList response: ", response);
     if (response.data.success) {
       setAccountsList(response.data.accountsList);
       setLogin(true); // accountsList 못가져오면 로그인 안된걸로 간주
     }
-    //test
-    // setAccountsList(["1@naver.com", "2@daum.net"]);
   };
   useEffect(() => {
     fetchAccountsList();
   }, []);
-  // const accountsList = ["abcd@naver.com", "1234@daum.net", "qwer@google.com"];
-
-  // 로그인 상태 가져오기
-  // const [login, setLogin] = useState(false);
-  // const fetchLogin = async () => {
-  //   const response = await axios.get("https://66d970b7-c9c2-4dfb-be10-e28048802b89.mock.pstmn.io/api/login");
-  //   setLogin(response.data.isLogin);
-  //   console.log("로그인 상태: ", login);
-  // };
-  // const [login, setLogin] = useState(false);
-  // const fetchLogin = () => {
-  //   setLogin(!login);
-  //   console.log("로그인 상태: ", login);
-  // };
 
   return (
     <>
       <Router>
         <Layout style={{ height: "100vh" }} className={styles.font}>
-          {/* <Layout className={styles.font}> */}
           <Sider trigger={null} collapsible collapsed={collapsed} theme="light">
             <div className="logo" style={{ marginTop: "10vh", height: "20%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
               <Link to="/" style={{ color: "green", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", fontSize: "15px", fontWeight: "bolder" }}>
-                {/* <MailFilled /> */}
                 <img src={Logo2} style={{ width: "100%" }} />
-                {/* {collapsed ? <div></div> : <div>EveryDay-Mail</div>} */}
               </Link>
             </div>
             <Menu theme="light" mode="inline" inlineCollapsed={collapsed} style={{ marginTop: "10vh", zIndex: "100" }}>
-              {/* <Menu.Item key="accounts" icon={<MailOutlined />}> */}
               <SubMenu title="Accounts" icon={<MailOutlined />}>
                 {accountsList !== [] ? (
                   accountsList.map((account) => {
@@ -113,7 +82,6 @@ const App = () => {
                   <></>
                 )}
               </SubMenu>
-              {/* </Menu.Item> */}
               <Menu.Item key="register" icon={<PlusCircleOutlined />}>
                 <Link to="/register">Register</Link>
               </Menu.Item>
@@ -125,11 +93,9 @@ const App = () => {
               </Menu.Item>
               {login ? (
                 <Menu.Item key="login" icon={<LogoutOutlined />} onClick={logout}>
-                  {/* <Menu.Item key="login" icon={<LogoutOutlined />}> */}
                   Logout
                 </Menu.Item>
               ) : (
-                // <Menu.Item key="login" icon={<LoginOutlined />} onClick={fetchLogin}>
                 <Menu.Item key="login" icon={<LoginOutlined />}>
                   <Link to="/login">Login</Link>
                 </Menu.Item>
@@ -158,7 +124,6 @@ const App = () => {
           </Layout>
         </Layout>
       </Router>
-      {/* <CookiesSave /> */}
     </>
   );
 };

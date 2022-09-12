@@ -1,7 +1,6 @@
-import React, { useState, useEffect, Component } from "react";
+import React, { useState } from "react";
 import styles from "./RegisterPage.module.css";
 import { Button, Form, Input, Select, Result, message } from "antd";
-import { CloseCircleOutlined } from "@ant-design/icons";
 import axios from "axios";
 
 function RegisterPage() {
@@ -22,10 +21,10 @@ function RegisterPage() {
       mailAddr: values.email.id + values.email.host,
       mailPw: values.user.password,
     });
-    console.log("register send data: ", { mailAddr: values.email.id + values.email.host, mailPw: values.user.password });
-    console.log("register response: ", response);
+    // console.log("register send data: ", { mailAddr: values.email.id + values.email.host, mailPw: values.user.password });
+    // console.log("register response: ", response);
     if (response.data.success) {
-      setStatus(response.data.status);
+      setStatus("success");
       setRegisteredEmail(values.email.id + values.email.host);
     } else {
       message.error(response.data.errorMessage);
@@ -149,7 +148,6 @@ function RegisterPage() {
                     <Select placeholder="Select mail host">
                       <Option value="@naver.com">@naver.com</Option>
                       <Option value="@daum.net">@daum.net</Option>
-                      <Option value="@gmail.com">@gmail.com</Option>
                       <Option value="@kakao.com">@kakao.com</Option>
                       <Option value="@nate.com">@nate.com</Option>
                     </Select>

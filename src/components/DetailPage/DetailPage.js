@@ -12,16 +12,19 @@ function DetailPage() {
     ignoreQueryPrefix: true,
   });
 
+  const [loading, setLoading] = useState(true);
+
   const [adSender, setAdSender] = useState([]);
   const fetchAdSender = async () => {
     const response = await axios.get(`/api/account/${query.account}/`);
-    // console.log("요청 url: ", `https://87e22f10-f2a1-494c-8ae5-71f15eaa1823.mock.pstmn.io/api/ad_senders?account=${query.account}`);
-    console.log("adsender response: ", response);
+    // console.log("adsender response: ", response);
     setAdSender(response.data.adSender);
+    setLoading(false);
   };
   useEffect(() => {
     fetchAdSender();
-  }, []);
+    setLoading(true);
+  }, [query.account]);
 
   return (
     <div className={styles.container}>
@@ -32,8 +35,6 @@ function DetailPage() {
             title="광고 메일에 구독 해지 링크가 포함되어 있는 경우 추출하여 표시합니다."
             placement="left"
             showCancel={false}
-            // onConfirm={confirm}
-            // onCancel={cancel}
             okText="확인"
             icon={
               <QuestionCircleFilled
@@ -42,7 +43,6 @@ function DetailPage() {
                 }}
               />
             }
-            // cancelText="No"
           >
             <div className={styles.unsubscribe_desc}>구독 해지하기 링크란?</div>
           </Popconfirm>
@@ -51,6 +51,7 @@ function DetailPage() {
           className={styles.sender_list}
           itemLayout="horizontal"
           dataSource={adSender}
+          loading={loading}
           renderItem={(item, index) => (
             <List.Item>
               <List.Item.Meta

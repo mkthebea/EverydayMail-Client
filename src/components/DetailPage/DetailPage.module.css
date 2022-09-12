@@ -5,13 +5,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* background-color: white; */
-    /* padding: 20px 20px 20px 20px; */
 }
 
 .list_header {
     padding-bottom: 30px;
-    /* color: green; */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -34,7 +31,6 @@
     background-color: white;
     padding: 30px;
     border-radius: 10px;
-    /* border: 5px double green; */
     width: 85vw;
 }
 

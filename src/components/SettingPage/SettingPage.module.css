@@ -33,17 +33,14 @@
 .tab {
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
     justify-content: space-around;
     height: 50vh;
-    /* background-color: rgb(250,250,250); */
     border-radius: 10px;
     font-size: 15px;
 }
 
 .option_container {
     display: flex;
-    /* padding: 10px; */
     height: 35vh;
     margin-top: 50px;
 }
@@ -53,7 +50,6 @@
 }
 
 .save_button {
-    /* margin-right: 50px; */
     width: 10vw;
     align-self: flex-end;
 }

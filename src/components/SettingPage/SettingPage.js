@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useSyncExternalStore } from "react";
+import React, { useState, useEffect } from "react";
 import { Input, Tabs, Switch, Button, message, List, Select, InputNumber } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import styles from "./SettingPage.module.css";
@@ -24,17 +24,33 @@ function SettingPage() {
     },
   });
   const fetchSettingData = async () => {
-    const response = await axios.get("/api/myinfo/setting/");
-    // setSettingData(response.data);
-    if (response.data.success) setSettingData(response.data.setting);
-    console.log("setting response: ", response);
+    let response = await axios.get("/api/myinfo/setting/");
+
+    // numm -> "" 변환
+    if (response.data.setting.spam.value === null) {
+      response.data.setting.spam.value = "";
+    }
+    if (response.data.setting.time.numValue === null) {
+      response.data.setting.time.numValue = "";
+    }
+    if (response.data.setting.time.unitValue === null) {
+      response.data.setting.time.unitValue = "";
+    }
+    if (response.data.setting.word.value === null) {
+      response.data.setting.word.value = "";
+    }
+
+    if (response.data.success) {
+      setSettingData(response.data.setting);
+    }
+    // console.log("setting response: ", response);
   };
   const [accountsList, setAccountsList] = useState([]);
   const fetchAccountsList = async () => {
     const response = await axios.get("/api/account/accounts/");
     // setAccountsList(response.data.accountsList);
     if (response.data.success) setAccountsList(response.data.accountsList);
-    console.log("accountList response: ", response);
+    // console.log("accountList response: ", response);
   };
   useEffect(() => {
     fetchSettingData();
@@ -46,7 +62,6 @@ function SettingPage() {
   // Tab 1
   const selectAfter = (
     <Select
-      // value={settingData.time.unitValue ? settingData.time.unitValue : "일"}
       value={settingData.time.unitValue}
       style={{
         width: 100,
@@ -83,7 +98,6 @@ function SettingPage() {
   };
 
   const onChangeSwitch = (key, checked) => {
-    // console.log(key, checked);
     setSettingData((current) => {
       let newValue = { ...current };
       newValue[key].status = checked ? 1 : 0;
@@ -100,8 +114,6 @@ function SettingPage() {
     ) {
       message.error("비어있는 값을 입력하세요");
     } else {
-      console.log("setting send data: ", settingData);
-
       // 설정 변경 요청 POST
       const response = await axios.post("/api/myinfo/setting/", settingData);
       // console.log("setting send data: ", settingData);
@@ -136,8 +148,8 @@ function SettingPage() {
     } else {
       // 저장 요청 보내기
       const response = await axios.post("/api/myinfo/changepw/", password);
-      console.log("change password send data: ", password);
-      console.log("change password response: ", response);
+      // console.log("change password send data: ", password);
+      // console.log("change password response: ", response);
       if (response.data.success) {
         message.success("비밀번호 변경 완료! 다시 로그인 하세요.");
         logout();
