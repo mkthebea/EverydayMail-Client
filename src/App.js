@@ -11,16 +11,14 @@ import RegisterPage from "./components/RegisterPage/RegisterPage";
 import LoginPage from "./components/LoginPage/LoginPage";
 import ScanningPage from "./components/ScanningPage/ScanningPage";
 import SettingPage from "./components/SettingPage/SettingPage";
-import Accounts from "./components/Accounts/Accounts";
 import DetailPage from "./components/DetailPage/DetailPage";
 import SignupPage from "./components/SignupPage/SignupPage";
 import NotAuthorized from "./components/NotAuthorized/NotAuthorized";
 import NotFound from "./components/NotFound/NotFound";
 
-import Logo from "./logo.png";
 import Logo2 from "./Logo2.png";
 
-const { Content, Sider, Footer } = Layout;
+const { Content, Sider } = Layout;
 const { SubMenu } = Menu;
 
 const App = () => {

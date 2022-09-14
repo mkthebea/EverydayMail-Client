@@ -48,7 +48,6 @@ function SettingPage() {
   const [accountsList, setAccountsList] = useState([]);
   const fetchAccountsList = async () => {
     const response = await axios.get("/api/account/accounts/");
-    // setAccountsList(response.data.accountsList);
     if (response.data.success) setAccountsList(response.data.accountsList);
     // console.log("accountList response: ", response);
   };

@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Result } from "antd";
 import styles from "./NotAuthorized.module.css";
 
-//접근 권한 없음
+// 사용자 인증 실패
 function NotAuthorized() {
   return (
     <div className={styles.container}>
