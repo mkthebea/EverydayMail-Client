@@ -9,7 +9,7 @@ function LoginPage() {
   const [login, setLogin] = useState(false);
   const fetchLogin = () => {
     setLogin(!login);
-    console.log("로그인 상태: ", login);
+    // console.log("로그인 상태: ", login);
   };
 
   const onFinish = async (values) => {
