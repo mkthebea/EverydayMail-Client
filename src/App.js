@@ -59,14 +59,14 @@ const App = () => {
     <>
       <Router>
         <Layout style={{ height: "100vh" }} className={styles.font}>
-          <Sider trigger={null} collapsible collapsed={collapsed} theme="light">
+          <Sider trigger={null} collapsible collapsed={collapsed.toString()} theme="light">
             <div className="logo" style={{ marginTop: "10vh", height: "20%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
               <Link to="/" style={{ color: "green", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", fontSize: "15px", fontWeight: "bolder" }}>
                 <img src={Logo2} style={{ width: "100%" }} />
               </Link>
             </div>
-            <Menu theme="light" mode="inline" inlineCollapsed={collapsed} style={{ marginTop: "10vh", zIndex: "100" }}>
-              <SubMenu title="Accounts" icon={<MailOutlined />}>
+            <Menu theme="light" mode="inline" collapsed={collapsed.toString()} style={{ marginTop: "10vh", zIndex: "100" }}>
+              <SubMenu title="Accounts" icon={<MailOutlined />} key="submenu">
                 {accountsList !== [] ? (
                   accountsList.map((account) => {
                     return (

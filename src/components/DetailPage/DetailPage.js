@@ -16,8 +16,11 @@ function DetailPage() {
 
   const [adSender, setAdSender] = useState([]);
   const fetchAdSender = async () => {
-    const response = await axios.get(`/api/account/${query.account}/`);
+    let response = await axios.get(`/api/account/${query.account}/`);
     // console.log("adsender response: ", response);
+    response.data.adSender.forEach((ad) => {
+      if (ad.unsubscribeLink) ad.unsubscribeLink = ad.unsubscribeLink.replace(/&amp;/g, "&");
+    });
     setAdSender(response.data.adSender);
     setLoading(false);
   };

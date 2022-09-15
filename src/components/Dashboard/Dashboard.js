@@ -73,7 +73,7 @@ function Dashboard() {
       <div className={styles.bird_container}>
         <div className={styles.bird}></div>
       </div>
-      <div class={styles.bird_container_two}>
+      <div className={styles.bird_container_two}>
         <div className={styles.bird_two}></div>
       </div>
     </div>
