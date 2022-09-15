@@ -74,7 +74,7 @@ function ScanningPage() {
             </Radio>
           </Space>
         </Radio.Group>
-        <Button onClick={startScanning} type="primary" shape="round" size="large" className={styles.start_button} disabled={currentProgress == 1 ? true : false}>
+        <Button onClick={startScanning} type="primary" shape="round" size="large" className={styles.start_button} disabled={currentProgress === 1 ? true : false}>
           Start
         </Button>
         <div className={styles.progress_container}>

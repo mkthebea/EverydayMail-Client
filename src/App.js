@@ -1,10 +1,10 @@
-import React, { useState, useEffect, Component } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import axios from "axios";
 
 import styles from "./App.module.css";
 import "antd/dist/antd.min.css";
-import { ScanOutlined, LaptopOutlined, LoginOutlined, LogoutOutlined, SettingOutlined, PlusCircleOutlined, MenuFoldOutlined, MenuUnfoldOutlined, MailOutlined, MailFilled } from "@ant-design/icons";
+import { ScanOutlined, LaptopOutlined, LoginOutlined, LogoutOutlined, SettingOutlined, PlusCircleOutlined, MenuFoldOutlined, MenuUnfoldOutlined, MailOutlined } from "@ant-design/icons";
 import { Layout, Menu, message } from "antd";
 import DashBoard from "./components/Dashboard/Dashboard";
 import RegisterPage from "./components/RegisterPage/RegisterPage";
