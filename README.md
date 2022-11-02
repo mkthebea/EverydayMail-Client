@@ -1,6 +1,5 @@
 # 🌳✉ Everyday-Mail 매일메일 ✉🌳
 
-### 🏆2022 KBSC (제5회 KB국민은행 소프트웨어 경진대회) 출품작🏆
 
 + [BE code](https://github.com/hectick/Everyday-Mail)
 
